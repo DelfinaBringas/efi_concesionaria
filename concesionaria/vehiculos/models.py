@@ -77,5 +77,25 @@ class Inventario(models.Model):
     def __str__(self):
         return f'Inventario de {self.auto} por {self.proveedor} - Cantidad: {self.cantidad_disponible}'
 
+class Vendedor(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    telefono = models.CharField(max_length=15)
 
-#FALTA USUARIO Y DOS MAS PARA TENER 12
+    def __str__(self):
+        return self.usuario.username
+    
+class ImagenAuto(models.Model):
+    auto = models.ForeignKey(
+        Auto,
+        on_delete=models.CASCADE, 
+        related_name='images'
+    )
+    image = models.ImageField(upload_to='images_autos/', null=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.description or f'Image of {self.auto}'
+    
+#FALTA USUARIO: Y ACOMODAR VENDEDOR
+class Usuario (models.Model):
+    ...

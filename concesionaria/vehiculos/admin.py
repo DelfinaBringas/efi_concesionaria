@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from vehiculos.models import (Categoria,Marca,ModeloAuto,Auto,Cliente,Comentario,Venta,Proveedor,Inventario)
+from vehiculos.models import (Categoria,Marca,ModeloAuto,Auto,Cliente,Comentario,Venta,Proveedor,Inventario,Vendedor,ImagenAuto,Usuario)
+#FALTAN LOS UNTIMOS 3 PORQUE NOSE SI ESTAN BIEN
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
