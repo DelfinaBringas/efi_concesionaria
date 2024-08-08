@@ -9,11 +9,11 @@ class VehiculoForm(forms.ModelForm):
         widgets = {
             'marca': forms.Select(attrs={'class': 'form-control  custom-class'}),
             'modelo': forms.Select(attrs={'class': 'form-control  custom-class'}),
-            'cant_puertas': forms.NumberInput(attrs={'class': 'form-control  custom-class'}),               
+            'cantidad_puertas': forms.NumberInput(attrs={'class': 'form-control  custom-class'}),               
             'cilindrada': forms.NumberInput(attrs={'class': 'form-control  custom-class'}),
-            'combustible': forms.Select(attrs={'class': 'form-control  custom-class'}),
+            'tipo_combustible': forms.Select(attrs={'class': 'form-control  custom-class'}),
             'pais_fabricacion': forms.Select(attrs={'class': 'form-control  custom-class'}),
-            'precio_en_dolares': forms.NumberInput(attrs={'class': 'form-control  custom-class'}),
+            'precio_dolares': forms.NumberInput(attrs={'class': 'form-control  custom-class'}),
             'color': forms.Select(attrs={'class': 'form-control custom-class'}),
         }
 
