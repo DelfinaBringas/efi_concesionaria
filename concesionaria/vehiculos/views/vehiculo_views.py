@@ -23,7 +23,8 @@ def vehiculo_delete(request, id):
 def vehiculo_update(request, id):
     vehiculo = get_object_or_404(vehiculo_repository.get_all(), id=id)
     if request.method == 'POST':
-        ...
+        form = VehiculoForm(request.POST, instance=vehiculo)
+        if form.is_valid():
 
 
 
