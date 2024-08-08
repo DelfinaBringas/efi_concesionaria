@@ -1,0 +1,38 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Comentarios de {{ vehiculo.marca }} {{ vehiculo.modelo }}</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Autor</th>
+                <th>Fecha</th>
+                <th>Contenido</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comentario in comentarios %}
+            <tr>
+                <td>{{ comentario.author }}</td>
+                <td>{{ comentario.fecha }}</td>
+                <td>{{ comentario.texto }}</td>
+                <td>
+                    <form action="{% url 'comentario_delete' comentario.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay comentarios para este vehículo.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'vehiculo_list' %}" class="btn btn-primary">lista de vehículos</a>
+</div>
+{% endblock %}

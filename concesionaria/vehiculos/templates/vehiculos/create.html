@@ -1,0 +1,67 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Crear Producto</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Marca</label>
+            <select name="marca" class="form-control">
+                <option value="">Selecciona una marca</option>
+                {% for marca in marcas %}
+                    <option value="{{ marca.id }}">{{ marca.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Modelo</label>
+            <select name="modelo" class="form-control">
+                <option value="">Selecciona un modelo</option>
+                {% for modelo in modelos %}
+                    <option value="{{ modelo.id }}">{{ modelo.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Cantidad de puertas</label>
+            <input type="number" step="1" name="cant_puertas" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Cilindrada</label>
+            <input type="number" step="0.01" name="cilindrada" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Combustible</label>
+            <select name="tipo_combustible" class="form-control">
+                <option value="">Selecciona un combustible</option>
+                {% for combustible in combustibles %}
+                    <option value="{{ combustible.id }}">{{ combustible.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>País de fabricación</label>
+            <select name="pais_fabricacion" class="form-control">
+                <option value="">Selecciona un país</option>
+                {% for pais in paises %}
+                    <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Precio en USD</label>
+            <input type="number" step="0.01" name="precio_en_dolares" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Color</label>
+            <select name="color" class="form-control">
+                <option value="">Selecciona un color</option>
+                {% for color in colores %}
+                    <option value="{{ color.id }}">{{ color.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock %}

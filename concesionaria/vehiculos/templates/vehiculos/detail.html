@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Detalles del Vehículo</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ vehiculo.modelo.nombre }}</h5>
+            <p class="card-text"><strong>Marca:</strong> {{ vehiculo.marca.nombre }}</p>
+            <p class="card-text"><strong>Modelo:</strong> {{ vehiculo.modelo.nombre }}</p>
+            <p class="card-text"><strong>Cantidad de puertas:</strong> {{ vehiculo.cantidad_puertas }}</p>
+            <p class="card-text"><strong>Cilindrada:</strong> {{ vehiculo.cilindrada }}</p>
+            <p class="card-text"><strong>Tipo de combustible:</strong> {{ vehiculo.tipo_combustible.nombre }}</p>
+            <p class="card-text"><strong>País de fabricación:</strong> {{ vehiculo.pais_fabricacion.nombre }}</p>
+            <p class="card-text"><strong>Precio en USD:</strong> {{ vehiculo.precio_dolares }}</p>
+            <p class="card-text"><strong>Color:</strong> {{ vehiculo.color.nombre }}</p>
+            
+            <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'vehiculo_delete' vehiculo.id %}" class="btn btn-danger">Borrar</a>
+            <a href="{% url 'vehiculo_list' %}" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

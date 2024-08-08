@@ -1,0 +1,62 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Actualizar Vehículo</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Marca</label>
+            <select name="marca" class="form-control">
+                {% for marca in marcas %}
+                    <option value="{{ marca.id }}" {% if marca.id == form.instance.marca.id %} selected {% endif %}>
+                        {{ marca.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Modelo</label>
+            <select name="modelo" class="form-control">
+                {% for modelo in modelos %}
+                    <option value="{{ modelo.id }}" {% if modelo.id == form.instance.modelo.id %} selected {% endif %}>
+                        {{ modelo.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Cantidad de puertas</label>
+            <input type="number" step="1" name="cant_puertas" class="form-control" value="{{ form.instance.cantidad_puertas }}" required>
+        </div>
+        <div class="form-group">
+            <label>Cilindrada</label>
+            <input type="number" step="0.01" name="cilindrada" class="form-control" value="{{ form.instance.cilindrada }}" required>
+        </div>
+        <div class="form-group">
+            <label>Combustible</label>
+            <select name="tipo_combustible" class="form-control">
+                {% for combustible in combustibles %}
+                    <option value="{{ combustible.id }}" {% if combustible.id == form.instance.tipo_combustible.id %} selected {% endif %}>
+                        {{ combustible.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>País de fabricación</label>
+            <select name="pais_fabricacion" class="form-control">
+                {% for pais in paises %} ######VER
+                    <option value="{{ pais.id }}" {% if pais.id == form.instance.pais_fabricacion.id %} selected {% endif %}>
+                        {{ pais.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Precio en USD</label>
+            <input type="number" step="0.01" name="precio_en_dolares" class="form-control" value="{{ form.instance.precio_dolares }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+</div>
+{% endblock %}
