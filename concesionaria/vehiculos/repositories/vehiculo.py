@@ -1,5 +1,5 @@
 from typing import List, Optional
-from vehiculos.models import Vehiculo,Marca,Modelo,Tipo_combustible,Color,Proveedor
+from vehiculos.models import Vehiculo,Marca,Modelo,Tipo_combustible,Color,Pais_fabricacion
 #precio
 class VehiculoRepository:
     def get_all(self) -> List[Vehiculo]:
@@ -38,11 +38,11 @@ class VehiculoRepository:
         marca:Marca,
         cilindrada: float,
         cant_puertas: int,
-        pais_fabricacion:str,
         precio_dolares:float,
         modelo:Optional[Modelo] = None,
         tipo_combustible: Optional[Tipo_combustible] = None,
         color: Optional[Color] = None,
+        pais_fabricacion:Optional[Pais_fabricacion]=None
 
     ) -> Vehiculo:
         return Vehiculo.objects.create(
@@ -54,6 +54,7 @@ class VehiculoRepository:
             modelo=modelo,
             tipo_combustible=tipo_combustible,
             color=color,
+            pais_fabricacion=pais_fabricacion,
         )
     
     def update(
@@ -62,11 +63,11 @@ class VehiculoRepository:
             marca:Marca,
             cilindrada:float,
             cant_puertas:int,
-            pais_fabricacion:int,
             precio_dolares:float,
             modelo:Optional[Modelo]=None,
             tipo_combustible:Optional[Tipo_combustible]=None,
             color: Optional[Color] = None,
+            pais_fabricacion:Optional[Pais_fabricacion]=None,
 
     ) -> Vehiculo:
         vehiculo.marca=marca,
@@ -77,6 +78,7 @@ class VehiculoRepository:
         vehiculo.modelo=modelo,
         vehiculo.tipo_combustible=tipo_combustible,
         vehiculo.color=color,
+        Vehiculo.pais_fabricacion=pais_fabricacion
 
         vehiculo.save()
         return vehiculo

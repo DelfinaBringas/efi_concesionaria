@@ -33,13 +33,19 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre
 
+class Pais_fabricacion(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
 class Vehiculo(models.Model):
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE, null=True)
     cantidad_puertas = models.IntegerField()
     cilindrada = models.FloatField(default= 0)
-    tipo_combustible = models.CharField(max_length=50, null=True)
-    pais_fabricacion = models.CharField(max_length=100)
+    tipo_combustible = models.ForeignKey(Tipo_combustible, on_delete=models.CASCADE, null=True)
+    pais_fabricacion = models.ForeignKey(Pais_fabricacion, on_delete=models.CASCADE, null=True)
     precio_dolares = models.DecimalField(max_digits=10, decimal_places=2)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
 
