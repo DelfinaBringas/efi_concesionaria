@@ -68,13 +68,22 @@ def vehiculo_create(request):
             pais_id = form.cleaned_data['pais_fabricacion'].id
             color_id = form.cleaned_data['color'].id
 
-            marca = MarcaReposository.get_by_id(marca_id)
-            modelo = ModeloReposository.get_by_id(modelo_id)
-            tipo_combustible=CombustibleRepository.get_by_id(combustible_id)
-            pais_fabricacion=PaisRepository.get_by_id(pais_id)
-            color = ColorRepository.get_by_id(color_id)
+            # Crear instancias de los repositorios
+            marca_repo = MarcaReposository()
+            modelo_repo = ModeloReposository()
+            combustible_repo = CombustibleRepository()
+            pais_repo = PaisRepository()
+            color_repo = ColorRepository()
 
-            vehiculo_nuevo= vehiculo_repository.create(
+            # Obtener los datos necesarios
+            marca = marca_repo.get_by_id(marca_id)
+            modelo = modelo_repo.get_by_id(modelo_id)
+            tipo_combustible = combustible_repo.get_by_id(combustible_id)
+            pais_fabricacion = pais_repo.get_by_id(pais_id)
+            color = color_repo.get_by_id(color_id)
+
+            # Crear el nuevo vehículo
+            vehiculo_nuevo = vehiculo_repository.create(
                 marca=marca,
                 modelo=modelo,
                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
@@ -84,27 +93,37 @@ def vehiculo_create(request):
                 precio_dolares=form.cleaned_data['precio_dolares'],
                 color=color,
             )
-            return redirect('vehiculo_lista')
-        
-        else:
-            form = VehiculoForm()
-        marcas= MarcaReposository.get_all()
-        modelos=ModeloReposository.get_all()
-        combustibles=CombustibleRepository.get_all()
-        paises_fabricacion=PaisRepository.get_all()
-        colores=ColorRepository.get_all()
+            return redirect('vehiculo_list')
+    else:
+        form = VehiculoForm()
 
-        return render(
-            request,
-            'vehiculos/create.html',{
+    # Crear instancias de los repositorios
+    marca_repo = MarcaReposository()
+    modelo_repo = ModeloReposository()
+    combustible_repo = CombustibleRepository()
+    pais_repo = PaisRepository()
+    color_repo = ColorRepository()
+
+    # Obtener los datos necesarios para los selects
+    marcas = marca_repo.get_all()
+    modelos = modelo_repo.get_all()
+    combustibles = combustible_repo.get_all()
+    paises_fabricacion = pais_repo.get_all()
+    colores = color_repo.get_all()
+
+    return render(
+        request,
+        'vehiculos/create.html',
+        {
             'form': form,
             'marcas': marcas,
             'modelos': modelos,
             'combustibles': combustibles,
             'paises': paises_fabricacion,
-            'colores':colores
-            }
-        )
+            'colores': colores
+        }
+    )
+
 
 def vehiculo_comentarios(request, id):
     vehiculo = vehiculo_repository.get_by_id(id)
