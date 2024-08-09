@@ -17,7 +17,7 @@ from vehiculos.views.proveedor_view import(
 )
 
 urlpatterns = [
-    path(route="", view=vehiculo_list, name='vehiculo_lista'),
+    path(route="", view=vehiculo_list, name='vehiculo_list'),
     path(route="create/", view=vehiculo_create, name='vehiculo_create'),
     path(route="<int:id>/delete/", view=vehiculo_delete, name='vehiculo_delete'),
     path(route="<int:id>/update/", view=vehiculo_update, name='vehiculo_update'),
