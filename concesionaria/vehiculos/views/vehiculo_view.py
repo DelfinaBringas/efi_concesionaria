@@ -24,7 +24,7 @@ def vehiculo_delete(request, id):
 
 #CAMBIOSS TIENE:
 def vehiculo_update(request, id):
-    vehiculo = get_object_or_404(vehiculo_repository.get_all(), id=id)
+    vehiculo = get_object_or_404(vehiculo_repository.get_by_id(id))
     if request.method == 'POST':
         form = VehiculoForm(request.POST, instance=vehiculo)
         if form.is_valid():
@@ -43,9 +43,8 @@ def vehiculo_update(request, id):
     else:
         form = VehiculoForm(instance=vehiculo)
     
-    # Obtener datos para el formulario
     marcas = MarcaReposository.get_all()
-    modelos = MarcaReposository.get_all()
+    modelos = ModeloReposository.get_all()
     combustibles = CombustibleRepository.get_all()
     paises_fabricacion = PaisRepository.get_all()
     colores = ColorRepository.get_all()

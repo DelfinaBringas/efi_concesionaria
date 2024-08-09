@@ -6,7 +6,6 @@ from vehiculos.forms import ProveedorForm
 
 repo=ProveedorRepository()
 
-@login_required
 def proveedor_list(request):
     proveedor_repository = ProveedorRepository()
     proveedores = proveedor_repository.get_all() 
@@ -48,4 +47,12 @@ def proveedor_create(request):
 
     return render(request, 'proveedor/form.html', {'form': form})
 
-
+@login_required
+def proveedor_detail(request, id):
+    proveedor = get_object_or_404(Proveedor, id=id)
+    
+    return render(
+        request,
+        'proveedor/detail.html',
+        {'proveedor': proveedor}
+    )

@@ -6,11 +6,11 @@ from vehiculos.repositories.modelo import ModeloReposository
 repo = ModeloReposository()
 
 def modelo_list(request):
-    modelos = repo.get_all()
+    modelo = repo.get_all()
     return render(
         request,
         'vehiculos/create.html',
-        {'modelos': modelos}
+        {'modelos': modelo}
     )
 
 def index_view(request):

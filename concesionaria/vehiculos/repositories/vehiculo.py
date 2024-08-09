@@ -31,13 +31,13 @@ class VehiculoRepository:
         return Vehiculo.objects.filter(marca=marca)
     
     def delete(Self, vehiculo: Vehiculo):
-        return Vehiculo.delete()
+         Vehiculo.delete()
 
     def create (
         self,
         marca:Marca,
         cilindrada: float,
-        cant_puertas: int,
+        cantidad_puertas: int,
         precio_dolares:float,
         modelo:Optional[Modelo] = None,
         tipo_combustible: Optional[Tipo_combustible] = None,
@@ -48,13 +48,12 @@ class VehiculoRepository:
         return Vehiculo.objects.create(
             marca=marca,
             cilindrada=cilindrada,
-            cant_puertas=cant_puertas,
+            cantidad_puertas=cantidad_puertas,
             pais_fabricacion=pais_fabricacion,
             precio_dolares=precio_dolares,
             modelo=modelo,
             tipo_combustible=tipo_combustible,
             color=color,
-            pais_fabricacion=pais_fabricacion,
         )
     
     def update(
@@ -62,7 +61,7 @@ class VehiculoRepository:
             vehiculo:Vehiculo,
             marca:Marca,
             cilindrada:float,
-            cant_puertas:int,
+            cantidad_puertas:int,
             precio_dolares:float,
             modelo:Optional[Modelo]=None,
             tipo_combustible:Optional[Tipo_combustible]=None,
@@ -72,13 +71,12 @@ class VehiculoRepository:
     ) -> Vehiculo:
         vehiculo.marca=marca,
         vehiculo.cilindrada=cilindrada,
-        vehiculo.cantidad_puertas=cant_puertas,
+        vehiculo.cantidad_puertas=cantidad_puertas,
         vehiculo.pais_fabricacion=pais_fabricacion,
         vehiculo.precio_dolares=precio_dolares,
         vehiculo.modelo=modelo,
         vehiculo.tipo_combustible=tipo_combustible,
         vehiculo.color=color,
-        Vehiculo.pais_fabricacion=pais_fabricacion
 
         vehiculo.save()
         return vehiculo
