@@ -33,7 +33,7 @@ def proveedor_update(request, id):
     else:
         form = ProveedorForm(instance=proveedor)
 
-    return render(request, 'proveedor/form.html', {'form': form})
+    return render(request, 'proveedor/update.html', {'form': form})
 
 @login_required
 def proveedor_create(request):
@@ -45,7 +45,7 @@ def proveedor_create(request):
     else:
         form = ProveedorForm()
 
-    return render(request, 'proveedor/form.html', {'form': form})
+    return render(request, 'vehiculos/create.html', {'form':form})
 
 @login_required
 def proveedor_detail(request, id):
