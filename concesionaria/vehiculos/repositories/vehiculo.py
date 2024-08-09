@@ -31,7 +31,7 @@ class VehiculoRepository:
         return Vehiculo.objects.filter(marca=marca)
     
     def delete(Self, vehiculo: Vehiculo):
-         Vehiculo.delete()
+         vehiculo.delete()
 
     def create (
         self,
@@ -39,6 +39,7 @@ class VehiculoRepository:
         cilindrada: float,
         cantidad_puertas: int,
         precio_dolares:float,
+        fabricado_el: int,
         modelo:Optional[Modelo] = None,
         tipo_combustible: Optional[Tipo_combustible] = None,
         color: Optional[Color] = None,
@@ -51,35 +52,37 @@ class VehiculoRepository:
             cantidad_puertas=cantidad_puertas,
             pais_fabricacion=pais_fabricacion,
             precio_dolares=precio_dolares,
+            fabricado_el= fabricado_el,
             modelo=modelo,
             tipo_combustible=tipo_combustible,
             color=color,
         )
     
     def update(
-            self,
-            vehiculo:Vehiculo,
-            marca:Marca,
-            cilindrada:float,
-            cantidad_puertas:int,
-            precio_dolares:float,
-            modelo:Optional[Modelo]=None,
-            tipo_combustible:Optional[Tipo_combustible]=None,
-            color: Optional[Color] = None,
-            pais_fabricacion:Optional[Pais_fabricacion]=None,
-
+        self,
+        vehiculo: Vehiculo,
+        marca: Marca,
+        cilindrada: float,
+        cantidad_puertas: int,
+        precio_dolares: float,
+        fabricado_el: int,
+        modelo: Optional[Modelo] = None,
+        tipo_combustible: Optional[Tipo_combustible] = None,
+        color: Optional[Color] = None,
+        pais_fabricacion: Optional[Pais_fabricacion] = None
     ) -> Vehiculo:
-        vehiculo.marca=marca,
-        vehiculo.cilindrada=cilindrada,
-        vehiculo.cantidad_puertas=cantidad_puertas,
-        vehiculo.pais_fabricacion=pais_fabricacion,
-        vehiculo.precio_dolares=precio_dolares,
-        vehiculo.modelo=modelo,
-        vehiculo.tipo_combustible=tipo_combustible,
-        vehiculo.color=color,
+        vehiculo.marca = marca
+        vehiculo.cilindrada = cilindrada
+        vehiculo.cantidad_puertas = cantidad_puertas
+        vehiculo.pais_fabricacion = pais_fabricacion
+        vehiculo.precio_dolares = precio_dolares
+        vehiculo.fabricado_el = fabricado_el
+        vehiculo.modelo = modelo
+        vehiculo.tipo_combustible = tipo_combustible
+        vehiculo.color = color
 
         vehiculo.save()
         return vehiculo
-        
+
   
     

@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date, datetime
 from django.contrib.auth.models import User
 
 class Marca(models.Model):
@@ -42,6 +43,7 @@ class Pais_fabricacion(models.Model):
 class Vehiculo(models.Model):
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE, null=True)
+    fabricado_el=models.IntegerField(default=datetime.now().year)
     cantidad_puertas = models.IntegerField()
     cilindrada = models.FloatField(default= 0)
     tipo_combustible = models.ForeignKey(Tipo_combustible, on_delete=models.CASCADE, null=True)

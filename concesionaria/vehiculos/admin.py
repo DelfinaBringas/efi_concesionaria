@@ -33,8 +33,8 @@ class PaisFabricacionAdmin(admin.ModelAdmin):
 
 @admin.register(Vehiculo)
 class VehiculoAdmin(admin.ModelAdmin):
-    list_display = ('marca', 'modelo', 'cantidad_puertas', 'cilindrada', 'tipo_combustible', 'pais_fabricacion', 'precio_dolares', 'color')
-    list_filter = ('marca', 'modelo', 'tipo_combustible', 'pais_fabricacion', 'color')
+    list_display = ('marca', 'modelo', 'fabricado_el','cantidad_puertas', 'cilindrada', 'tipo_combustible', 'pais_fabricacion', 'precio_dolares', 'color')
+    list_filter = ('marca', 'modelo', 'fabricado_el','tipo_combustible', 'pais_fabricacion', 'color')
     search_fields = ('marca__nombre', 'modelo__nombre', 'precio_dolares')
 
 @admin.register(Comentario)

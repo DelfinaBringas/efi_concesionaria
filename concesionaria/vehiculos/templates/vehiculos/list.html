@@ -1,17 +1,18 @@
 {% extends "home/base.html" %}
 {% block content %}
         <div class="container mt-3">
-            <h2>concesionaria de autos</h2>
-            <a href="{% url 'vehiculo_create' %}" class="btn btn-primary mb-3">Agregar Auto</a>
+            <h2>Concesionaria AutoLux</h2>
+            <a href="{% url 'vehiculo_create' %}" class="btn btn-primary mb-3">Añadir Auto</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Marca</th>
                         <th>Modelo</th>
-                        <th>Cant. Puertas</th>
+                        <th>Pais de Fabricacion</th>
+                        <th>Cantidad de Puertas</th>
                         <th>Cilindrada</th>
                         <th>Tipo de Combustible</th>
-                        <th>Pais de Fabricacion</th>
+                        <th>Año de Fabricacion</th>
                         <th>Precio USD</th>
                         <th>Color</th>
                     </tr>
@@ -21,6 +22,7 @@
                     <tr>
                         <td>{{ vehiculo.marca.nombre }}</td>
                         <td>{{ vehiculo.modelo.nombre }}</td>
+                        <td>{{ vehiculo.fabricado_el }}</td>
                         <td>{{ vehiculo.cantidad_puertas }}</td>
                         <td>{{ vehiculo.cilindrada }}</td>
                         <td>{{ vehiculo.tipo_combustible.nombre }}</td>

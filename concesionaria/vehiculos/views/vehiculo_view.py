@@ -5,6 +5,7 @@ from vehiculos.repositories.modelo import ModeloReposository
 from vehiculos.repositories.combustible import CombustibleRepository
 from vehiculos.repositories.pais_fabricacion import PaisRepository
 from vehiculos.repositories.color import ColorRepository
+from vehiculos.models import Vehiculo, Comentario
 from vehiculos.forms import VehiculoForm
 
 vehiculo_repository = VehiculoRepository()
@@ -20,34 +21,43 @@ def vehiculo_list(request):
 def vehiculo_delete(request, id):
     vehiculo = vehiculo_repository.get_by_id(id)
     vehiculo_repository.delete(vehiculo)
-    return redirect('vehiculo_lista')
+    return redirect('vehiculo_list')
 
-#CAMBIOSS TIENE:
 def vehiculo_update(request, id):
-    vehiculo = get_object_or_404(vehiculo_repository.get_by_id(id))
+    vehiculo = get_object_or_404(Vehiculo, id=id)
+    
     if request.method == 'POST':
         form = VehiculoForm(request.POST, instance=vehiculo)
         if form.is_valid():
             vehiculo_repository.update(
                 vehiculo=vehiculo,
-                marca=form.cleaned_data['marca'],
-                modelo=form.cleaned_data['modelo'],
+                marca=form.cleaned_data['marca'],  # Debería ser un solo objeto Marca
+                modelo=form.cleaned_data['modelo'],  # Debería ser un solo objeto Modelo
                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
                 cilindrada=form.cleaned_data['cilindrada'],
-                tipo_combustible=form.cleaned_data['tipo_combustible'],
-                pais_fabricacion=form.cleaned_data['pais_fabricacion'],
+                tipo_combustible=form.cleaned_data['tipo_combustible'],  # Debería ser un solo objeto Combustible
+                pais_fabricacion=form.cleaned_data['pais_fabricacion'],  # Debería ser un solo objeto Pais
                 precio_dolares=form.cleaned_data['precio_dolares'],
-                color=form.cleaned_data['color'],
+                color=form.cleaned_data['color'],  # Debería ser un solo objeto Color
+                fabricado_el=form.cleaned_data['fabricado_el']
             )
-            return redirect('vehiculo_lista')
+            return redirect('vehiculo_list')
     else:
         form = VehiculoForm(instance=vehiculo)
     
-    marcas = MarcaReposository.get_all()
-    modelos = ModeloReposository.get_all()
-    combustibles = CombustibleRepository.get_all()
-    paises_fabricacion = PaisRepository.get_all()
-    colores = ColorRepository.get_all()
+    # Crear instancias de los repositorios
+    marca_repo = MarcaReposository()
+    modelo_repo = ModeloReposository()
+    combustible_repo = CombustibleRepository()
+    pais_repo = PaisRepository()
+    color_repo = ColorRepository()
+
+    # Obtener los datos necesarios
+    marcas = marca_repo.get_all()
+    modelos = modelo_repo.get_all()
+    combustibles = combustible_repo.get_all()
+    paises_fabricacion = pais_repo.get_all()
+    colores = color_repo.get_all()
 
     return render(request, 'vehiculos/create.html', {
         'form': form,
@@ -87,6 +97,7 @@ def vehiculo_create(request):
                 marca=marca,
                 modelo=modelo,
                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
+                fabricado_el=form.cleaned_data['fabricado_el'],
                 cilindrada=form.cleaned_data['cilindrada'],
                 tipo_combustible=tipo_combustible,
                 pais_fabricacion=pais_fabricacion,
@@ -124,7 +135,6 @@ def vehiculo_create(request):
         }
     )
 
-
 def vehiculo_comentarios(request, id):
     vehiculo = vehiculo_repository.get_by_id(id)
     comentarios = vehiculo.comentarios.all()
@@ -141,9 +151,8 @@ def index_view(request):
     return render(request, 'index/index.html')
 
 def vehiculo_detail(request, id):
-    vehiculo = get_object_or_404(vehiculo_repository.get_by_id(id))
-    comentarios = vehiculo.comentarios.all()
-
+    vehiculo = get_object_or_404(Vehiculo,id=id)
+    comentarios = Comentario.objects.filter(vehiculo=vehiculo) 
     return render(
         request,
         'vehiculos/detail.html', 
@@ -154,39 +163,6 @@ def vehiculo_detail(request, id):
     )
         
 
-# def vehiculo_create(request):
-#     if request.method == 'POST':
-#         form = VehiculoForm(request.POST)
-#         if form.is_valid():
-#             vehiculo_repository.create(
-#                 marca=form.cleaned_data['marca'],
-#                 modelo=form.cleaned_data['modelo'],
-#                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
-#                 cilindrada=form.cleaned_data['cilindrada'],
-#                 tipo_combustible=form.cleaned_data['tipo_combustible'],
-#                 pais_fabricacion=form.cleaned_data['pais_fabricacion'],
-#                 precio_dolares=form.cleaned_data['precio_dolares'],
-#                 color=form.cleaned_data['color'],
-#             )
-#             return redirect('vehiculo_lista')
-#     else:
-#         form = VehiculoForm()
-
-#     # Obtener datos para el formulario
-#     marcas = MarcaRepository.get_all()
-#     modelos = ModeloRepository.get_all()
-#     combustibles = CombustibleRepository.get_all()
-#     paises_fabricacion = PaisRepository.get_all()
-#     colores = ColorRepository.get_all()
-
-#     return render(request, 'vehiculos/create.html', {
-#         'form': form,
-#         'marcas': marcas,
-#         'modelos': modelos,
-#         'combustibles': combustibles,
-#         'paises': paises_fabricacion,
-#         'colores': colores
-#     })
 
 
 
