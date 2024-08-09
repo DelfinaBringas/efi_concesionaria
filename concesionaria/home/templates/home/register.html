@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h2>Registro de Usuario</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <label for="id_username">Nombre de Usuario</label>
+        {{ form.username }}
+
+        {% if form.username.errors %}
+            <p style="color: red;">{{ form.username.errors }}</p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <label for="id_email">Email</label>
+        {{ form.email }}
+
+        {% if form.email.errors %}
+            <p style="color: red;">{{ form.email.errors }}</p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <label for="id_password1">Contraseña</label>
+        {{ form.password1 }}
+
+        {% if form.password1.errors %}
+            <p style="color: red;">{{ form.password1.errors }}</p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <label for="id_password2">Repita su Contraseña</label>
+        {{ form.password2 }}
+
+        {% if form.password2.errors %}
+            <p style="color: red;">{{ form.password2.errors }}</p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <label for="id_first_name">Nombre</label>
+        {{ form.first_name }}
+
+        {% if form.first_name.errors %}
+            <p style="color: red;">{{ form.first_name.errors }}</p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <label for="id_last_name">Apellido</label>
+        {{ form.last_name }}
+
+        {% if form.last_name.errors %}
+            <p style="color: red;">{{ form.last_name.errors }}</p>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-success">Registrarme</button>
+</form>
+{% endblock %}

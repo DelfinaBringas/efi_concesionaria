@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Ingrese al sitio</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Nombre de Usuario</label>
+                        {{ form.username }}
+
+                        {% if form.username.errors %}
+                            <div class="text-danger">{{ form.username.errors }}</div>
+                        {% endif %}
+
+                        <label for="password">Contraseña</label>
+                        {{ form.password }}
+
+                        {% if form.password.errors %}
+                            <div class="text-danger">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary m-0">Ingresar</button>
+                </form>
+                <a href="{% url 'register' %}">Registrate</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -15,14 +15,14 @@ def proveedor_list(request):
         {'proveedores': proveedores}  
     )
 
-@login_required
+@login_required(login_url='login')
 def proveedor_delete(request, id:int):
     repo= ProveedorRepository()
     proveedor= repo.get_by_id(id)
     repo.delete(proveedor)
     return redirect ('proveedor_list')
 
-@login_required
+@login_required(login_url='login')
 def proveedor_update(request, id):
     proveedor = get_object_or_404(Proveedor, id=id)
     if request.method == 'POST':
@@ -35,7 +35,7 @@ def proveedor_update(request, id):
 
     return render(request, 'proveedor/update.html', {'form': form})
 
-@login_required
+@login_required(login_url='login')
 def proveedor_create(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
@@ -47,7 +47,7 @@ def proveedor_create(request):
 
     return render(request, 'vehiculos/create.html', {'form':form})
 
-@login_required
+@login_required(login_url='login')
 def proveedor_detail(request, id):
     proveedor = get_object_or_404(Proveedor, id=id)
     
