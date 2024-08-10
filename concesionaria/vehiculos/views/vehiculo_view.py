@@ -135,17 +135,17 @@ def vehiculo_create(request):
         }
     )
 
-def vehiculo_comentarios(request, id):
-    vehiculo = vehiculo_repository.get_by_id(id)
-    comentarios = vehiculo.comentarios.all()
-    return render(
-        request,
-        'vehiculos/comentarios.html',
-        {
-            'vehiculo': vehiculo,
-            'comentarios': comentarios
-        }
-    )
+# def vehiculo_comentarios(request, id):
+#     vehiculo = vehiculo_repository.get_by_id(id)
+#     comentarios = vehiculo.comentarios.all()
+#     return render(
+#         request,
+#         'vehiculos/comentarios.html',
+#         {
+#             'vehiculo': vehiculo,
+#             'comentarios': comentarios
+#         }
+#     )
 
 def index_view(request):
     return render(request, 'index/index.html')

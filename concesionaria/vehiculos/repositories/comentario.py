@@ -1,37 +1,45 @@
+from typing import List
 from typing import List, Optional
-from vehiculos.models import Comentario,Vehiculo
+from django.contrib.auth.models import User
+from vehiculos.models import Comentario, Vehiculo
 
 class ComentarioRepository:
+
     def get_all(self) -> List[Comentario]:
         return Comentario.objects.all()
     
-    def get_by_id(self,id:int) -> Optional [Comentario]:
-        try:
-            return Comentario.objects.get(id=id)
-        except Comentario.DoesNotExist:
-            return None
-        
-    def create( 
-            self,
-            vehiculo:Optional[Vehiculo],
-            author:str,
-            texto:str,
-    ) -> Comentario:
-        return Comentario.objects.create(
-            author=author,
-            vehiculo=vehiculo,
-            texto=texto,
-        )
+    def get_by_id(self, id:int) -> Optional[Comentario]:
+        return Comentario.objects.get(id=id)
     
-    def delete(self, comentario: Comentario):
-        return comentario.delete()
+    def delete(self, comentario:Comentario):
+        Comentario.delete()
+    
+    def create(
+        self,
+        vehiculo_id: int,
+        author: User,
+        texto: str
+    ) -> Comentario:
+        try:
+            vehiculo = Vehiculo.objects.get(id=vehiculo_id)
+        except Vehiculo.DoesNotExist:
+            raise ValueError("Vehículo no encontrado")
+
+        comentario = Comentario.objects.create(
+            vehiculo=vehiculo,
+            author=author,
+            texto=texto
+        )
+        return comentario
     
     def update(
-            self,
-            vehiculo:Optional[Vehiculo],
-            author: str,
-            texto:str,
-    ) -> Comentario:
-        Comentario.vehiculo= vehiculo
-        Comentario.author=author
-        Comentario.texto=texto
+        self, 
+        comentario: Comentario,
+        vehiculo:str,
+        author:str,
+        texto:str,
+        ):
+          comentario.vehiculo=vehiculo
+          comentario.author=author
+          comentario.texto=texto
+          comentario.save()
