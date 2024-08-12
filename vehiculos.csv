@@ -1,0 +1,101 @@
+Marca,Modelo,Año de Fabricacion,Cantidad de Puertas,Cilindrada,Tipo de Combustible,Pais de Fabricacion,Precio en dolares,Color
+Toyota,Yaris,2007,4,2.0,Electric,Japan,56246,Pink
+BMW,X3,2006,4,1.4,Electric,South Korea,26706,Red
+Honda,Civic,2003,2,3.0,Diesel,China,64551,Blue
+BMW,X3,2006,2,3.5,Diesel,Japan,73608,Green
+Ford,Escape,2014,2,3.5,Hybrid,Brazil,27693,Black
+BMW,3 Series,2011,4,1.6,Hybrid,China,74280,Silver
+Nissan,Rogue,2009,4,2.0,Gasoline,Germany,42632,White
+Kia,Sportage,2023,4,3.0,Hybrid,China,41437,Gray
+Toyota,Yaris,2014,2,2.4,Gasoline,India,38943,Orange
+Honda,CR-V,2009,2,4.0,Electric,South Korea,57661,Red
+Ford,Explorer,2001,4,1.2,Gasoline,India,27829,Blue
+Ford,F-150,2017,2,1.8,Hybrid,India,17142,Green
+Toyota,Corolla,2009,4,1.8,Hybrid,Germany,13008,Silver
+Chevrolet,Silverado,2005,4,1.6,Gasoline,Mexico,56030,Black
+Nissan,Frontier,2019,4,3.0,Diesel,Germany,60940,Red
+Nissan,Frontier,2007,4,1.2,Gasoline,India,41637,White
+Kia,Optima,2017,2,1.4,Diesel,Brazil,37971,Gray
+Mercedes-Benz,GLC,2009,4,2.0,Diesel,China,11912,Orange
+Kia,Optima,2020,2,4.0,Hybrid,South Korea,62164,Blue
+Kia,Rio,2023,2,1.6,Hybrid,Brazil,75724,Green
+Toyota,Prius,2019,4,1.8,Hybrid,Japan,17083,Silver
+Honda,Accord,2016,2,2.0,Diesel,South Korea,57527,Black
+Toyota,Prius,2019,4,1.6,Hybrid,Germany,42632,Red
+BMW,3 Series,2009,4,1.0,Electric,China,13008,Gray
+Hyundai,Elantra,2003,2,3.5,Diesel,China,15875,White
+Honda,Fit,2012,4,3.5,Electric,India,73136,Blue
+Hyundai,Sonata,2020,2,1.4,Hybrid,Brazil,51880,Green
+Mercedes-Benz,C-Class,2010,4,3.5,Gasoline,India,56030,Silver
+Chevrolet,Tahoe,2019,2,1.2,Diesel,China,58441,Black
+Ford,Escape,2019,2,1.2,Gasoline,Japan,12454,Red
+BMW,5 Series,2023,4,1.6,Gasoline,USA,62164,White
+Kia,Rio,2009,2,4.0,Hybrid,India,15875,Gray
+Hyundai,Santa Fe,2016,2,1.8,Gasoline,India,15875,Orange
+Nissan,Rogue,2011,4,2.4,Hybrid,South Korea,47207,Blue
+Hyundai,Sonata,2015,2,1.0,Hybrid,India,60940,Green
+Ford,F-150,2007,2,2.0,Gasoline,Germany,13702,Silver
+Mercedes-Benz,GLE,2012,4,1.2,Diesel,Mexico,37425,Black
+Kia,Sportage,2000,2,2.4,Gasoline,South Korea,58441,Red
+Chevrolet,Equinox,2023,4,2.4,Hybrid,Germany,73488,White
+Honda,CR-V,2000,4,2.2,Electric,Brazil,74280,Gray
+Honda,CR-V,2009,2,2.0,Hybrid,South Korea,60940,Orange
+Chevrolet,Silverado,2021,2,3.5,Electric,USA,54282,Blue
+Mercedes-Benz,C-Class,2012,4,1.4,Hybrid,India,12043,Green
+Ford,Escape,2013,4,3.5,Electric,Brazil,26922,Silver
+Mercedes-Benz,E-Class,2000,2,1.4,Diesel,China,15875,Black
+Hyundai,Elantra,2013,2,1.2,Electric,USA,31026,Red
+Kia,Sorento,2016,2,3.0,Electric,Germany,73136,White
+Honda,Accord,2004,2,4.0,Diesel,Germany,38649,Gray
+Honda,Civic,2008,2,4.0,Gasoline,Brazil,74280,Orange
+Ford,F-150,2003,2,1.2,Gasoline,India,51880,Blue
+Nissan,Altima,2020,4,1.8,Gasoline,USA,17142,Green
+Toyota,Corolla,2004,4,3.0,Diesel,Germany,14362,Silver
+Kia,Optima,2014,2,2.2,Electric,Mexico,60940,Black
+Hyundai,Santa Fe,2019,4,1.4,Electric,Germany,33774,Red
+Kia,Sorento,2015,4,1.6,Hybrid,Germany,47207,White
+Ford,Mustang,2010,4,3.5,Electric,South Korea,27829,Gray
+Honda,CR-V,2004,4,4.0,Hybrid,Japan,73488,Orange
+Volkswagen,Golf,2018,4,1.8,Diesel,USA,29273,Blue
+Toyota,Corolla,2001,4,2.0,Hybrid,Brazil,12454,Green
+Kia,Sportage,2019,2,3.5,Gasoline,India,72927,Silver
+Volkswagen,Tiguan,2018,2,2.0,Diesel,Japan,57943,Black
+Mercedes-Benz,C-Class,2017,2,3.0,Electric,Brazil,17142,Red
+Volkswagen,Golf,2008,4,2.0,Diesel,South Korea,63586,White
+Toyota,Camry,2012,2,3.0,Electric,India,17083,Gray
+Hyundai,Elantra,2019,4,1.2,Diesel,USA,38649,Orange
+Mercedes-Benz,E-Class,2015,4,1.8,Gasoline,China,13702,Blue
+Mercedes-Benz,GLC,2023,2,1.2,Electric,China,22800,Green
+Hyundai,Tucson,2019,2,3.5,Diesel,South Korea,12454,Silver
+Ford,Mustang,2019,4,1.4,Gasoline,India,23901,Black
+Ford,Escape,2019,2,3.0,Diesel,Brazil,53478,Red
+Ford,Mustang,2013,4,1.4,Electric,Japan,33774,White
+Nissan,Sentra,2000,4,2.0,Electric,USA,56030,Gray
+Chevrolet,Tahoe,2004,4,3.5,Diesel,USA,42632,Orange
+Volkswagen,Golf,2009,2,2.0,Diesel,Mexico,60940,Blue
+Mercedes-Benz,E-Class,2013,2,2.0,Electric,USA,49148,Green
+Hyundai,Sonata,2004,2,1.4,Gasoline,Brazil,60940,Silver
+Hyundai,Tucson,2013,2,3.0,Electric,Germany,77190,Black
+Honda,Fit,2021,4,1.6,Electric,India,46438,Red
+BMW,3 Series,2011,4,2.0,Hybrid,Brazil,12832,White
+Honda,Civic,2000,4,1.6,Electric,Mexico,61571,Gray
+Toyota,Prius,2021,2,2.0,Diesel,Brazil,13589,Orange
+Hyundai,Sonata,2016,4,1.8,Electric,China,13008,Blue
+Volkswagen,Golf,2018,4,3.0,Gasoline,Germany,37833,Green
+Chevrolet,Malibu,2007,2,3.0,Gasoline,South Korea,34808,Silver
+Kia,Rio,2017,2,4.0,Gasoline,Brazil,12699,Black
+BMW,5 Series,2019,4,1.8,Gasoline,Japan,40730,Red
+Hyundai,Sonata,2014,2,1.4,Hybrid,India,75724,White
+Volkswagen,Jetta,2014,2,2.2,Gasoline,Japan,72201,Gray
+Nissan,Altima,2019,4,1.6,Diesel,South Korea,68016,Orange
+Honda,Accord,2017,2,1.2,Electric,South Korea,17142,Blue
+Toyota,Camry,2003,2,3.0,Hybrid,USA,24293,Green
+Nissan,Sentra,2014,2,2.0,Diesel,Japan,44573,Silver
+Toyota,Prius,2005,2,2.4,Hybrid,Brazil,22339,Black
+Volkswagen,Jetta,2014,4,4.0,Gasoline,Japan,46438,Red
+Honda,Civic,2008,4,1.0,Hybrid,Mexico,60940,White
+Toyota,Prius,2009,2,2.2,Electric,Japan,41637,Black
+Chevrolet,Tahoe,2001,4,1.4,Gasoline,Germany,59182,Green
+Hyundai,Tucson,2023,4,1.6,Hybrid,India,36152,Blue
+Honda,Fit,2015,2,1.4,Electric,USA,26706,Red
+Toyota,Prius,2017,4,1.8,Diesel,Japan,63586,Pink

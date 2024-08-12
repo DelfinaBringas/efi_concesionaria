@@ -8,7 +8,7 @@ Ejecutar el comando "python3 -m venv env "
 
 Activar el entorno virtual "source env/bin/activate"
 
-Ingresa a concesionaria cd concesionaria
+Ingresa a concesionaria "cd concesionaria"
 
 Instalar las dependencias "pip install -r requirements.txt"
 
