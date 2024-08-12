@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Comentarios de {{ vehiculo.marca }} {{ vehiculo.modelo }}</h2>
+    <h2>Comentarios de {{ vehiculo.marca.nombre }} {{ vehiculo.modelo.nombre }}</h2>
     <a href="{% url 'comentario_create' %}" class="btn btn-primary mb-3">Añadir Comentario</a>
 
     <table class="table table-striped">

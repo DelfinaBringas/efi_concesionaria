@@ -135,6 +135,7 @@ def vehiculo_create(request):
         }
     )
 
+#VER!
 # def vehiculo_comentarios(request, id):
 #     vehiculo = vehiculo_repository.get_by_id(id)
 #     comentarios = vehiculo.comentarios.all()

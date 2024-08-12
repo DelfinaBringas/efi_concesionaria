@@ -31,6 +31,7 @@ urlpatterns = [
     path(route="<int:id>/update/", view=vehiculo_update, name='vehiculo_update'),
     path(route="<int:id>/detail/", view=vehiculo_detail, name='vehiculo_detail'),
 
+
     path(route='proveedor/', view=proveedor_list, name='proveedor_list'),
     path(route='proveedor/<int:id>/delete/',view=proveedor_delete,name="proveedor_delete"),
     path(route='proveedor/create/',view=proveedor_create, name='proveedor_create'),

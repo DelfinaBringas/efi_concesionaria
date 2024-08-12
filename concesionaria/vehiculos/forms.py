@@ -21,13 +21,11 @@ class VehiculoForm(forms.ModelForm):
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = ['vehiculo', 'author', 'texto']
-        
+        fields = ['vehiculo','texto']
+
         widgets = {
-            'vehiculo': forms.Select(attrs={'class': 'form-control custom-class'}),
-            'author': forms.Select(attrs={'class': 'form-control custom-class'}),
-            'texto': forms.Textarea(attrs={'class': 'form-control custom-class', 'rows': 5}),
-        }
+             'texto': forms.Textarea(attrs={'class': 'form-control custom-class', 'rows': 5}),
+         }
 
 class ProveedorForm(forms.ModelForm):
     class Meta:

@@ -12,7 +12,7 @@ class ComentarioRepository:
         return Comentario.objects.get(id=id)
     
     def delete(self, comentario:Comentario):
-        Comentario.delete()
+        comentario.delete()
     
     def create(
         self,
