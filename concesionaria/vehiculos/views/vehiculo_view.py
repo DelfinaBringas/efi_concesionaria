@@ -1,7 +1,7 @@
 from django.views import View
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from vehiculos.repositories.vehiculo import VehiculoRepository
 from vehiculos.repositories.marca import MarcaReposository
 from vehiculos.repositories.modelo import ModeloReposository
@@ -79,47 +79,84 @@ class VehiculoCreateView(UserPassesTestMixin, View):
         return self.get(request)
 
 
-class VehiculoUpdateView(UserPassesTestMixin, View):
+# class VehiculoUpdateView(UserPassesTestMixin, View):
+#     def test_func(self):
+#         return self.request.user.is_staff
+
+#     def get(self, request, id):
+#         vehiculo = vehiculo_repository.get_by_id(id)
+#         form = VehiculoForm(instance=vehiculo)
+#         marca_repo = MarcaReposository()
+#         modelo_repo = ModeloReposository()
+#         combustible_repo = CombustibleRepository()
+#         pais_repo = PaisRepository()
+#         color_repo = ColorRepository()
+
+#         context = {
+#             'form': form,
+#             'marcas': marca_repo.get_all(),
+#             'modelos': modelo_repo.get_all(),
+#             'combustibles': combustible_repo.get_all(),
+#             'paises': pais_repo.get_all(),
+#             'colores': color_repo.get_all(),
+#         }
+#         return render(request, 'vehiculos/create.html', context)
+
+#     def post(self, request, id):
+#         vehiculo = vehiculo_repository.get_by_id(id)
+#         form = VehiculoForm(request.POST, instance=vehiculo)
+#         if form.is_valid():
+#             vehiculo_repository.update(
+#                 vehiculo=vehiculo,
+#                 marca=form.cleaned_data['marca'],
+#                 modelo=form.cleaned_data['modelo'],
+#                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
+#                 cilindrada=form.cleaned_data['cilindrada'],
+#                 tipo_combustible=form.cleaned_data['tipo_combustible'],
+#                 pais_fabricacion=form.cleaned_data['pais_fabricacion'],
+#                 precio_dolares=form.cleaned_data['precio_dolares'],
+#                 color=form.cleaned_data['color'],
+#                 fabricado_el=form.cleaned_data['fabricado_el']
+#             )
+#             return HttpResponseRedirect(reverse('vehiculo_list'))
+#         return self.get(request, id)
+class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
-        return self.request.user.is_staff
+        # Permite acceso si el usuario es staff o el vehículo pertenece al usuario
+        vehiculo = self.get_object()
+        return self.request.user.is_staff or vehiculo.creador == self.request.user
+
+    def get_object(self):
+        return get_object_or_404(Vehiculo, id=self.kwargs['id'])
 
     def get(self, request, id):
-        vehiculo = vehiculo_repository.get_by_id(id)
+        vehiculo = self.get_object()
         form = VehiculoForm(instance=vehiculo)
-        marca_repo = MarcaReposository()
-        modelo_repo = ModeloReposository()
-        combustible_repo = CombustibleRepository()
-        pais_repo = PaisRepository()
-        color_repo = ColorRepository()
-
         context = {
             'form': form,
-            'marcas': marca_repo.get_all(),
-            'modelos': modelo_repo.get_all(),
-            'combustibles': combustible_repo.get_all(),
-            'paises': pais_repo.get_all(),
-            'colores': color_repo.get_all(),
+            'marcas': MarcaReposository().get_all(),
+            'modelos': ModeloReposository().get_all(),
+            'combustibles': CombustibleRepository().get_all(),
+            'paises': PaisRepository().get_all(),
+            'colores': ColorRepository().get_all(),
         }
         return render(request, 'vehiculos/create.html', context)
 
     def post(self, request, id):
-        vehiculo = vehiculo_repository.get_by_id(id)
+        vehiculo = self.get_object()
         form = VehiculoForm(request.POST, instance=vehiculo)
         if form.is_valid():
-            vehiculo_repository.update(
-                vehiculo=vehiculo,
-                marca=form.cleaned_data['marca'],
-                modelo=form.cleaned_data['modelo'],
-                cantidad_puertas=form.cleaned_data['cantidad_puertas'],
-                cilindrada=form.cleaned_data['cilindrada'],
-                tipo_combustible=form.cleaned_data['tipo_combustible'],
-                pais_fabricacion=form.cleaned_data['pais_fabricacion'],
-                precio_dolares=form.cleaned_data['precio_dolares'],
-                color=form.cleaned_data['color'],
-                fabricado_el=form.cleaned_data['fabricado_el']
-            )
+            form.save()
             return HttpResponseRedirect(reverse('vehiculo_list'))
-        return self.get(request, id)
+        context = {
+            'form': form,
+            'marcas': MarcaReposository().get_all(),
+            'modelos': ModeloReposository().get_all(),
+            'combustibles': CombustibleRepository().get_all(),
+            'paises': PaisRepository().get_all(),
+            'colores': ColorRepository().get_all(),
+        }
+        return render(request, 'vehiculos/create.html', context)
 
 
 class VehiculoDetailView(View):
@@ -130,6 +167,7 @@ class VehiculoDetailView(View):
             'vehiculo': vehiculo,
             'comentarios': comentarios
         })
+
 
 
 

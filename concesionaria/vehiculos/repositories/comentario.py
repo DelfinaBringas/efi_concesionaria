@@ -29,17 +29,7 @@ class ComentarioRepository:
             texto=texto
         )
         return review
-        # try:
-        #     vehiculo = Vehiculo.objects.get(id=vehiculo_id)
-        # except Vehiculo.DoesNotExist:
-        #     raise ValueError("Vehículo no encontrado")
 
-        # comentario = Comentario.objects.create(
-        #     vehiculo=vehiculo,
-        #     author=author,
-        #     texto=texto
-        # )
-        # return comentario
     
     def update(
         self, 

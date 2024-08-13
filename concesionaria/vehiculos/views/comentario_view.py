@@ -15,18 +15,7 @@ class ComentarioListView(View):
         }
         return render(request, 'comentario/list.html', context)
 
-# class ComentarioCreateView(View):
-#     def get(self, request, vehiculo_id):
-#         vehiculo = get_object_or_404(Vehiculo, id=vehiculo_id)
-#         form = ComentarioForm()
-#         return render(
-#             request,
-#             'comentario/create.html',
-#             {
-#                 'vehiculo': vehiculo,
-#                 'form': form
-#             }
-#         )
+
 class ComentarioCreateView(LoginRequiredMixin, View):
     def get(self, request, vehiculo_id):
         vehiculo = get_object_or_404(Vehiculo, id=vehiculo_id)
