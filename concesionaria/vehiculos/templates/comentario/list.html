@@ -46,7 +46,9 @@
         <ul class="list-group">
             {% for comment in recent_comments %}
                 <li class="list-group-item">
-                    <strong>{{ comment.author }}</strong>: {{ comment.texto }} ({{ comment.fecha }})
+                    <strong>{{ comment.author }}</strong>: {{ comment.texto }} ({{ comment.fecha }}) 
+                    <br>
+                    <small>Vehículo: {{ comment.vehiculo.marca.nombre }} {{ comment.vehiculo.modelo.nombre }}</small>
                 </li>
             {% empty %}
                 <li class="list-group-item">No hay comentarios recientes.</li>
@@ -57,4 +59,3 @@
     <a href="{% url 'vehiculo_list' %}" class="btn btn-primary mt-3">Lista de Autos</a>
 </div>
 {% endblock %}
-

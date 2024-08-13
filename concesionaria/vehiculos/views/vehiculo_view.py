@@ -79,47 +79,6 @@ class VehiculoCreateView(UserPassesTestMixin, View):
         return self.get(request)
 
 
-# class VehiculoUpdateView(UserPassesTestMixin, View):
-#     def test_func(self):
-#         return self.request.user.is_staff
-
-#     def get(self, request, id):
-#         vehiculo = vehiculo_repository.get_by_id(id)
-#         form = VehiculoForm(instance=vehiculo)
-#         marca_repo = MarcaReposository()
-#         modelo_repo = ModeloReposository()
-#         combustible_repo = CombustibleRepository()
-#         pais_repo = PaisRepository()
-#         color_repo = ColorRepository()
-
-#         context = {
-#             'form': form,
-#             'marcas': marca_repo.get_all(),
-#             'modelos': modelo_repo.get_all(),
-#             'combustibles': combustible_repo.get_all(),
-#             'paises': pais_repo.get_all(),
-#             'colores': color_repo.get_all(),
-#         }
-#         return render(request, 'vehiculos/create.html', context)
-
-#     def post(self, request, id):
-#         vehiculo = vehiculo_repository.get_by_id(id)
-#         form = VehiculoForm(request.POST, instance=vehiculo)
-#         if form.is_valid():
-#             vehiculo_repository.update(
-#                 vehiculo=vehiculo,
-#                 marca=form.cleaned_data['marca'],
-#                 modelo=form.cleaned_data['modelo'],
-#                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
-#                 cilindrada=form.cleaned_data['cilindrada'],
-#                 tipo_combustible=form.cleaned_data['tipo_combustible'],
-#                 pais_fabricacion=form.cleaned_data['pais_fabricacion'],
-#                 precio_dolares=form.cleaned_data['precio_dolares'],
-#                 color=form.cleaned_data['color'],
-#                 fabricado_el=form.cleaned_data['fabricado_el']
-#             )
-#             return HttpResponseRedirect(reverse('vehiculo_list'))
-#         return self.get(request, id)
 class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
         # Permite acceso si el usuario es staff o el vehículo pertenece al usuario
@@ -140,7 +99,7 @@ class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
             'paises': PaisRepository().get_all(),
             'colores': ColorRepository().get_all(),
         }
-        return render(request, 'vehiculos/create.html', context)
+        return render(request, 'vehiculos/update.html', context)
 
     def post(self, request, id):
         vehiculo = self.get_object()
