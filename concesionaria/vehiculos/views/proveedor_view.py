@@ -1,58 +1,71 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.views import View
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 from vehiculos.repositories.proveedor import ProveedorRepository
 from vehiculos.models import Proveedor
 from vehiculos.forms import ProveedorForm
+from django.contrib.auth.mixins import UserPassesTestMixin
 
-repo=ProveedorRepository()
+repo = ProveedorRepository()
 
-def proveedor_list(request):
-    proveedor_repository = ProveedorRepository()
-    proveedores = proveedor_repository.get_all() 
-    return render(
-        request,
-        'proveedor/list.html',
-        {'proveedores': proveedores}  
-    )
+class ProveedorListView(View):
+    def get(self, request):
+        proveedores = repo.get_all()
+        return render(request, 'proveedor/list.html', {'proveedores': proveedores})
 
-@login_required(login_url='login')
-def proveedor_delete(request, id:int):
-    repo= ProveedorRepository()
-    proveedor= repo.get_by_id(id)
-    repo.delete(proveedor)
-    return redirect ('proveedor_list')
+class ProveedorDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
+    login_url = 'login'
 
-@login_required(login_url='login')
-def proveedor_update(request, id):
-    proveedor = get_object_or_404(Proveedor, id=id)
-    if request.method == 'POST':
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def post(self, request, id: int):
+        proveedor = repo.get_by_id(id)
+        repo.delete(proveedor)
+        return HttpResponseRedirect(reverse('proveedor_list'))
+
+class ProveedorUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
+    login_url = 'login'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def get(self, request, id: int):
+        proveedor = get_object_or_404(Proveedor, id=id)
+        form = ProveedorForm(instance=proveedor)
+        return render(request, 'proveedor/update.html', {'form': form})
+
+    def post(self, request, id: int):
+        proveedor = get_object_or_404(Proveedor, id=id)
         form = ProveedorForm(request.POST, instance=proveedor)
         if form.is_valid():
             form.save()
-            return redirect('proveedor_list')
-    else:
-        form = ProveedorForm(instance=proveedor)
+            return HttpResponseRedirect(reverse('proveedor_list'))
+        return render(request, 'proveedor/update.html', {'form': form})
 
-    return render(request, 'proveedor/update.html', {'form': form})
+class ProveedorCreateView(LoginRequiredMixin, UserPassesTestMixin, View):
+    login_url = 'login'
 
-@login_required(login_url='login')
-def proveedor_create(request):
-    if request.method == 'POST':
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def get(self, request):
+        form = ProveedorForm()
+        return render(request, 'vehiculos/create.html', {'form': form})
+
+    def post(self, request):
         form = ProveedorForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('proveedor_list')
-    else:
-        form = ProveedorForm()
+            return HttpResponseRedirect(reverse('proveedor_list'))
+        return render(request, 'vehiculos/create.html', {'form': form})
 
-    return render(request, 'vehiculos/create.html', {'form':form})
 
-@login_required(login_url='login')
-def proveedor_detail(request, id):
-    proveedor = get_object_or_404(Proveedor, id=id)
-    
-    return render(
-        request,
-        'proveedor/detail.html',
-        {'proveedor': proveedor}
-    )
+class ProveedorDetailView(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def get(self, request, id: int):
+        proveedor = get_object_or_404(Proveedor, id=id)
+        return render(request, 'proveedor/detail.html', {'proveedor': proveedor})

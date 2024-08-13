@@ -1,3 +1,4 @@
+
 {% extends "home/base.html" %}
 
 {% block content %}
@@ -11,7 +12,7 @@
             <p class="card-text"><strong>Fecha:</strong> {{ comentario.fecha }}</p>
             <a href="{% url 'comentario_update' comentario.id %}" class="btn btn-warning">Editar</a>
             <a href="{% url 'comentario_delete' comentario.id %}" class="btn btn-danger">Borrar</a>
-            <a href="{% url 'comentario_create' vehiculo.id %}" class="btn btn-primary mb-3">Añadir Comentario</a>
+            <a href="{% url 'comentario_create' comentario.vehiculo.id %}" class="btn btn-primary">Añadir Comentario</a>
             
             <a href="{% url 'vehiculo_detail' comentario.vehiculo.id %}" class="btn btn-secondary">Volver al detalle del vehículo</a>
         </div>

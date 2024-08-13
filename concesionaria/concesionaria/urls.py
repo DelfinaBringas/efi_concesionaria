@@ -9,4 +9,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('vehiculos', include('vehiculos.urls')),
     
-]
+] + static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

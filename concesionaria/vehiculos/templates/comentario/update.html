@@ -1,15 +1,21 @@
+
 {% extends "home/base.html" %}
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Actualizar comentario</h2>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Actualizar Comentario</button>
-    </form>
-
-    <a href="{% url 'comentario_list' vehiculo.id %}" class="btn btn-secondary mt-3">Lista de comentarios</a>
+    <h2>Detalles del Comentario</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ comentario.author }}</h5>
+            <p class="card-text"><strong>Vehículo:</strong> {{ comentario.vehiculo.marca }} {{ comentario.vehiculo.modelo }}</p>
+            <p class="card-text"><strong>Comentario:</strong> {{ comentario.texto }}</p>
+            <p class="card-text"><strong>Fecha:</strong> {{ comentario.fecha }}</p>
+            <a href="{% url 'comentario_update' comentario.id %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'comentario_delete' comentario.id %}" class="btn btn-danger">Borrar</a>
+            <a href="{% url 'comentario_create' comentario.vehiculo.id %}" class="btn btn-primary mb-3">Añadir Comentario</a>
+            
+            <a href="{% url 'vehiculo_detail' comentario.vehiculo.id %}" class="btn btn-secondary">Volver al detalle del vehículo</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

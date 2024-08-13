@@ -1,21 +1,22 @@
-{% extends 'home/base.html' %}
+{% extends "home/base.html" %}
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Agregar Comentario</h2>
-    <form method="post">
+    <h2>Crear Comentario</h2>
+    <form method="post" action="{% url 'comentario_create' vehiculo.id %}">
         {% csrf_token %}
-        <div class="form-group">
-            <label>Vehículo {{vehiculo_id.nombre}}</label>
-        </div>
-        <div class="form-group">
-            <label>Comentario</label>
-            <textarea name="texto" class="form-control" required></textarea>
-        </div>
+        {{ form.as_p }}
+        <input type="hidden" name="vehiculo_id" value="{{ vehiculo.id }}">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
+    <a href="{% url 'comentario_list' vehiculo.id %}">Ver Comentarios del Vehículo</a>
 </div>
 {% endblock %}
 
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 

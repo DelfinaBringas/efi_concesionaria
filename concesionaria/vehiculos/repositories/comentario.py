@@ -2,6 +2,7 @@ from typing import List
 from typing import List, Optional
 from django.contrib.auth.models import User
 from vehiculos.models import Comentario, Vehiculo
+from vehiculos.repositories.vehiculo import VehiculoRepository
 
 class ComentarioRepository:
 
@@ -20,17 +21,25 @@ class ComentarioRepository:
         author: User,
         texto: str
     ) -> Comentario:
-        try:
-            vehiculo = Vehiculo.objects.get(id=vehiculo_id)
-        except Vehiculo.DoesNotExist:
-            raise ValueError("Vehículo no encontrado")
-
-        comentario = Comentario.objects.create(
+        vehiculo_repo = VehiculoRepository()
+        vehiculo = vehiculo_repo.get_by_id(vehiculo_id)
+        review=Comentario.objects.create(
             vehiculo=vehiculo,
             author=author,
             texto=texto
         )
-        return comentario
+        return review
+        # try:
+        #     vehiculo = Vehiculo.objects.get(id=vehiculo_id)
+        # except Vehiculo.DoesNotExist:
+        #     raise ValueError("Vehículo no encontrado")
+
+        # comentario = Comentario.objects.create(
+        #     vehiculo=vehiculo,
+        #     author=author,
+        #     texto=texto
+        # )
+        # return comentario
     
     def update(
         self, 

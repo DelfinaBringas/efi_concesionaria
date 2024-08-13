@@ -1,45 +1,66 @@
 {% extends "home/base.html" %}
+
 {% block content %}
-        <div class="container mt-3">
-            <h2>Concesionaria AutoLux</h2>
+    <div class="container mt-3">
+        <h2>Concesionaria AutoLux</h2>
+        
+        {% if user.is_authenticated %}
+            <div class="user-info mb-3">
+                <h4>Información del Usuario</h4>
+                <p><strong>Nombre:</strong> {{ user_full_name }}</p>
+                <p><strong>Email:</strong> {{ user_email }}</p>
+                {% if is_staff %}
+                    <p><strong>Rol:</strong> Staff</p>
+                {% else %}
+                    <p><strong>Rol:</strong> Usuario</p>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if user.is_staff %}
             <a href="{% url 'vehiculo_create' %}" class="btn btn-primary mb-3">Añadir Auto</a>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Año de Fabricacion</th>
-                        <th>Cantidad de Puertas</th>
-                        <th>Cilindrada</th>
-                        <th>Tipo de Combustible</th>
-                        <th>Pais de Fabricacion</th>
-                        <th>Precio USD</th>
-                        <th>Color</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for vehiculo in vehiculos %}
-                    <tr>
-                        <td>{{ vehiculo.marca.nombre }}</td>
-                        <td>{{ vehiculo.modelo.nombre }}</td>
-                        <td>{{ vehiculo.fabricado_el }}</td>
-                        <td>{{ vehiculo.cantidad_puertas }}</td>
-                        <td>{{ vehiculo.cilindrada }}</td>
-                        <td>{{ vehiculo.tipo_combustible.nombre }}</td>
-                        <td>{{ vehiculo.pais_fabricacion }}</td>
-                        <td>{{ vehiculo.precio_dolares }}</td>
-                        <td>{{ vehiculo.color.nombre }}</td>
-                        <td>
-                            <a href="{% url 'vehiculo_detail' vehiculo.id %}" class="btn btn-info btn-sm">Detalles</a>
-                            {% if user.is_authenticated %}
+        {% endif %}
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Año de Fabricacion</th>
+                    <th>Cantidad de Puertas</th>
+                    <th>Cilindrada</th>
+                    <th>Tipo de Combustible</th>
+                    <th>Pais de Fabricacion</th>
+                    <th>Precio USD</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehiculo in vehiculos %}
+                <tr>
+                    <td>{{ vehiculo.marca.nombre }}</td>
+                    <td>{{ vehiculo.modelo.nombre }}</td>
+                    <td>{{ vehiculo.fabricado_el }}</td>
+                    <td>{{ vehiculo.cantidad_puertas }}</td>
+                    <td>{{ vehiculo.cilindrada }}</td>
+                    <td>{{ vehiculo.tipo_combustible.nombre }}</td>
+                    <td>{{ vehiculo.pais_fabricacion }}</td>
+                    <td>{{ vehiculo.precio_dolares }}</td>
+                    <td>{{ vehiculo.color.nombre }}</td>
+                    <td>
+                        <a href="{% url 'vehiculo_detail' vehiculo.id %}" class="btn btn-info btn-sm">Detalles</a>
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff %}
                                 <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success btn-sm">Editar</a>
                                 <a href="{% url 'vehiculo_delete' vehiculo.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                                <a href="{% url 'comentario_list' %}" class="btn" style="background-color: rgb(140, 22, 207); color: white; border: none;">Comentarios</a>
-                                {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table> 
-        </div>
+                            {% endif %}
+                            <a href="{% url 'comentario_list' vehiculo.id %}" class="btn" style="background-color: rgb(140, 22, 207); color: white; border: none;">Comentarios</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
 {% endblock %}
+

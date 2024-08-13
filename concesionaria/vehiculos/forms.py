@@ -21,7 +21,7 @@ class VehiculoForm(forms.ModelForm):
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = ['vehiculo','texto']
+        fields = ['texto']
 
         widgets = {
              'texto': forms.Textarea(attrs={'class': 'form-control custom-class', 'rows': 5}),

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     'vehiculos',
     'home',
-    'users'
+    'users',
+    
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #SELF CONTEXT
+                'concesionaria.context_processors.context_processors_cometario_reciente.recent_comments',
+                'concesionaria.context_processors.context_processors_usuario_info.usuario_info',
             ],
         },
     },

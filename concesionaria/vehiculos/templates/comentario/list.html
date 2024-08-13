@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-3">
     <h2>Comentarios de {{ vehiculo.marca.nombre }} {{ vehiculo.modelo.nombre }}</h2>
-    <a href="{% url 'comentario_create' %}" class="btn btn-primary mb-3">Añadir Comentario</a>
+    <a href="{% url 'comentario_create' vehiculo.id %}" class="btn btn-primary mb-3">Añadir Comentario</a>
 
     <table class="table table-striped">
         <thead>
@@ -11,6 +11,7 @@
                 <th>Autor</th>
                 <th>Fecha</th>
                 <th>Contenido</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -20,12 +21,14 @@
                 <td>{{ comentario.fecha }}</td>
                 <td>{{ comentario.texto }}</td>
                 <td>
+                    {% if comentario.author == request.user %}
+                        <a href="{% url 'comentario_update' comentario.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    {% endif %}
                     {% if comentario.author == request.user or request.user.is_staff %}
-                    <a href="{% url 'comentario_update' comentario.id %}" class="btn btn-warning btn-sm">Editar</a>
-                    <form action="{% url 'comentario_delete' comentario.id %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
+                        <form action="{% url 'comentario_delete' comentario.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                     {% endif %}
                 </td>
             </tr>
@@ -37,7 +40,21 @@
         </tbody>
     </table>
 
-    <a href="{% url 'vehiculo_list' %}" class="btn btn-primary">Lista de Autos</a>
-   
+    <!-- Sección para mostrar los comentarios recientes -->
+    <div class="recent-comments mt-5">
+        <h3>Comentarios Recientes</h3>
+        <ul class="list-group">
+            {% for comment in recent_comments %}
+                <li class="list-group-item">
+                    <strong>{{ comment.author }}</strong>: {{ comment.texto }} ({{ comment.fecha }})
+                </li>
+            {% empty %}
+                <li class="list-group-item">No hay comentarios recientes.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{% url 'vehiculo_list' %}" class="btn btn-primary mt-3">Lista de Autos</a>
 </div>
 {% endblock %}
+

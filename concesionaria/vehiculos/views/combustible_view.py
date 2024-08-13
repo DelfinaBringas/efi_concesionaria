@@ -1,13 +1,9 @@
-from django.shortcuts import redirect, render
-from vehiculos.models import Tipo_combustible
+from django.views import View
+from django.shortcuts import render
 from vehiculos.repositories.combustible import CombustibleRepository
 
-repo = CombustibleRepository()
-
-def combustible_list(request):
-    combustible = repo.get_all()
-    return render(
-        request,
-        'vehiculos/create.html',
-        {'combustibles': combustible}
-    )
+class CombustibleListView(View):
+    def get(self, request):
+        repo = CombustibleRepository()
+        combustibles = repo.get_all()
+        return render(request, 'vehiculos/create.html', {'combustibles': combustibles})
