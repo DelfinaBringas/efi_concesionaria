@@ -1,18 +1,31 @@
 # efi_concesionaria
+# Configuración del Proyecto Django:
+
+Clonar el Repositorio:
+- git clone git@github.com:DelfinaBringas/efi_concesionaria.git
 
 Obtendras el directorio concesionaria
 
 Fuera del directorio deberas crear tu entorno virtual
+- python3 -m venv env
 
-Ejecutar el comando "python3 -m venv env "
+Activar el entorno virtual:
+- source env/bin/activate 
 
-Activar el entorno virtual "source env/bin/activate"
+Ingresa a concesionaria:
+- cd efi_concesionaria
 
-Ingresa a concesionaria "cd concesionaria"
+Instalar las dependencias:
+- pip install -r requirements.txt
 
-Instalar las dependencias "pip install -r requirements.txt"
+Configurar la Base de Datos: 
+- python manage.py makemigrations
+- python manage.py migrate
 
-Ejecutar el servidor "python3 manage.py runserver"
+Crear un Superusuario: 
+- python manage.py createsuperuser
 
-Acceder a la url http://localhost:8000/
+Ejecutar el servidor:
+- python3 manage.py runserver
+
 
