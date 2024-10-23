@@ -40,7 +40,7 @@
         </tbody>
     </table>
 
-    <!-- Sección para mostrar los comentarios recientes -->
+    <!-- Comentarios recientes -->
     <div class="recent-comments mt-5">
         <h3>Comentarios Recientes</h3>
         <ul class="list-group">
@@ -49,6 +49,12 @@
                     <strong>{{ comment.author }}</strong>: {{ comment.texto }} ({{ comment.fecha }}) 
                     <br>
                     <small>Vehículo: {{ comment.vehiculo.marca.nombre }} {{ comment.vehiculo.modelo.nombre }}</small>
+                    {% if request.user.is_staff %}
+                        <form action="{% url 'comentario_delete' comment.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% empty %}
                 <li class="list-group-item">No hay comentarios recientes.</li>
@@ -58,4 +64,5 @@
 
     <a href="{% url 'vehiculo_list' %}" class="btn btn-primary mt-3">Lista de Autos</a>
 </div>
+
 {% endblock %}

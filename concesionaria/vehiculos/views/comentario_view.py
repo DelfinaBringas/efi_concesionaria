@@ -5,6 +5,7 @@ from vehiculos.models import Comentario, Vehiculo
 from vehiculos.forms import ComentarioForm
 from django.http import HttpResponseForbidden
 
+
 class ComentarioListView(View):
     def get(self, request, vehiculo_id):
         comentarios = Comentario.objects.filter(vehiculo_id=vehiculo_id)

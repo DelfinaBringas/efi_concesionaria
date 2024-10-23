@@ -13,7 +13,7 @@ Activar el entorno virtual:
 - source env/bin/activate 
 
 Ingresa a concesionaria:
-- cd efi_concesionaria
+- cd concesionaria
 
 Instalar las dependencias:
 - pip install -r requirements.txt

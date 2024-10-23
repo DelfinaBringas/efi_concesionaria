@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 from django.contrib.auth.models import User
+from vehiculos.manager import ProductQuerySet
 
 class Marca(models.Model):
     nombre = models.CharField(max_length=100)
@@ -50,12 +51,15 @@ class Vehiculo(models.Model):
     pais_fabricacion = models.ForeignKey(Pais_fabricacion, on_delete=models.CASCADE, null=True)
     precio_dolares = models.DecimalField(max_digits=10, decimal_places=2)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
+    active=models.BooleanField(default=True)
+
+    objects = ProductQuerySet.as_manager()
 
     def __str__(self):
         return f'{self.marca} {self.modelo} ${self.precio_dolares}'
 
 class Comentario(models.Model):
-    vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
+    vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE,related_name='comentarios')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     texto = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
@@ -76,3 +80,4 @@ class ImagenAuto(models.Model):
         return self.description or f'Image of {self.vehiculo}'
     
 
+#HACER MIGRACION

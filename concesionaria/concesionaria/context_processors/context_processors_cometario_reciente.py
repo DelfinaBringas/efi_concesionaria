@@ -6,3 +6,4 @@ def recent_comments(request):
     return {
         'recent_comments': comments
     }
+
