@@ -9,6 +9,9 @@ from django.views import View
 from users.forms import UserRegisterForm
 
 from django.contrib.auth.forms import AuthenticationForm
+from users.models import Profile
+
+
 
 class LoginView(View):
     form_class = AuthenticationForm
@@ -57,7 +60,21 @@ class RegisterView(View):
         )
 
 #tiene que estar logeado para entrar si o si, sino vuelve al login
-
 @login_required(login_url='login')
 def index_view(request):
-    return redirect('vehiculo_list')
+    return render(request, 'home/index.html')
+
+class UpdateLang(View):
+    def get(self, request):
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except Profile.DoesNotExist:
+            profile = Profile.objects.create(user=request.user, language='es') 
+
+        if profile.language == 'es':
+            profile.language = 'en'
+        else:
+            profile.language = 'es'
+        
+        profile.save()
+        return redirect(request.META.get('HTTP_REFERER', 'index'))

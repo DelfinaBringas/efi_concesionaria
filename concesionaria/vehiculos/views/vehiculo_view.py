@@ -12,14 +12,29 @@ from vehiculos.models import Vehiculo, Comentario
 from vehiculos.forms import VehiculoForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.utils.translation import (activate, get_language, gettext_lazy as _, deactivate)
+from users.models import Profile
 
-vehiculo_repository = VehiculoRepository()
+vehiculo_repository = VehiculoRepository() 
 
 class VehiculoListView(View):
     def get(self, request):
+        # Configurar del usuario
+        lang = 'es'  
+        if request.user.is_authenticated:
+            try:
+                profile = Profile.objects.get(user=request.user)
+                lang = profile.language
+            except Profile.DoesNotExist:
+                # idioma por defecto
+                pass
+            
+        activate(lang) 
+
         vehiculos = vehiculo_repository.get_all()
         return render(request, 'vehiculos/list.html', {'vehiculos': vehiculos})
+    
+
 
 class VehiculoDeleteView(LoginRequiredMixin, View):
     def post(self, request, id):

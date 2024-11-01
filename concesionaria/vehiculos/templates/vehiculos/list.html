@@ -3,38 +3,40 @@
 <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
 {% block content %}
+{% load i18n %} 
+
     <div class="container mt-3">
-        <h2>Concesionaria AutoLux</h2>
+        <h2> {% trans "Concesionaria AutoLux" %} </h2>
         
         {% if user.is_authenticated %}
             <div class="user-info mb-3">
-                <h4>Información del Usuario</h4>
-                <p><strong>Nombre:</strong> {{ user_full_name }}</p>
-                <p><strong>Email:</strong> {{ user_email }}</p>
+                <h4> {% trans "Información del Usuario" %} </h4>
+                <p><strong> {% trans "Nombre" %} </strong> {{ user_full_name }}</p>
+                <p><strong> {% trans "Email" %} </strong> {{ user_email }}</p>
                 {% if is_staff %}
-                    <p><strong>Rol:</strong> Staff</p>
+                    <p><strong> {% trans "Rol" %} </strong> {% trans "Staff" %} </p>
                 {% else %}
-                    <p><strong>Rol:</strong> Usuario</p>
+                    <p><strong> {% trans "Rol" %} </strong> {% trans "Usuario" %} </p>
                 {% endif %}
             </div>
         {% endif %}
         
         {% if user.is_staff %}
-            <a href="{% url 'vehiculo_create' %}" class="btn btn-primary mb-3">Añadir Auto</a>
+            <a href="{% url 'vehiculo_create' %}" class="btn btn-primary mb-3"> {% trans "Añadir Auto" %} </a>
         {% endif %}
         
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Año de Fabricacion</th>
-                    <th>Cantidad de Puertas</th>
-                    <th>Cilindrada</th>
-                    <th>Tipo de Combustible</th>
-                    <th>Pais de Fabricacion</th>
-                    <th>Precio USD</th>
-                    <th>Color</th>
+                    <th> {% trans "Marca" %} </th>
+                    <th> {% trans "Modelo" %} </th>
+                    <th> {% trans "Año de Fabricacion" %} </th>
+                    <th> {% trans "Cantidad de Puertas" %} </th>
+                    <th> {% trans "Cilindrada" %} </th>
+                    <th> {% trans "Tipo de Combustible" %} </th>
+                    <th> {% trans "Pais de Fabricacion" %} </th>
+                    <th> {% trans "Precio USD" %} </th>
+                    <th> {% trans "Color" %} </th>
                 </tr>
             </thead>
             <tbody>
@@ -50,16 +52,16 @@
                     <td>{{ vehiculo.precio_dolares }}</td>
                     <td>{{ vehiculo.color.nombre }}</td>
                     <td>
-                        <a href="{% url 'vehiculo_detail' vehiculo.id %}" class="btn btn-info btn-sm">Detalles</a>
+                        <a href="{% url 'vehiculo_detail' vehiculo.id %}" class="btn btn-info btn-sm"> {% trans "Detalles" %} </a>
                         {% if user.is_authenticated %}
     {% if user.is_staff %}
         <form method="post" action="{% url 'vehiculo_delete' vehiculo.id %}" style="display:inline;">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            <button type="submit" class="btn btn-danger btn-sm"> {% trans "Eliminar" %} </button>
         </form>
-        <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success btn-sm">Editar</a>
+        <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success btn-sm"> {% trans "Editar" %} </a>
     {% endif %}
-    <a href="{% url 'comentario_list' vehiculo.id %}" class="btn" style="background-color: rgb(140, 22, 207); color: white; border: none;">Comentarios</a>
+    <a href="{% url 'comentario_list' vehiculo.id %}" class="btn" style="background-color: rgb(140, 22, 207); color: white; border: none;"> {% trans "Comentarios" %}</a>
 {% endif %}
 
                     </td>

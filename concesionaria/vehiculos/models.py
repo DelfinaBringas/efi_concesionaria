@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 from vehiculos.manager import ProductQuerySet
 
 class Marca(models.Model):
@@ -42,17 +43,17 @@ class Pais_fabricacion(models.Model):
         return self.nombre
 
 class Vehiculo(models.Model):
-    marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
-    modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE, null=True)
-    fabricado_el=models.IntegerField(default=datetime.now().year)
-    cantidad_puertas = models.IntegerField()
-    cilindrada = models.FloatField(default= 0)
-    tipo_combustible = models.ForeignKey(Tipo_combustible, on_delete=models.CASCADE, null=True)
-    pais_fabricacion = models.ForeignKey(Pais_fabricacion, on_delete=models.CASCADE, null=True)
-    precio_dolares = models.DecimalField(max_digits=10, decimal_places=2)
-    color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
-    active=models.BooleanField(default=True)
-
+    marca = models.ForeignKey(Marca, related_name='vehiculos',on_delete=models.CASCADE,verbose_name=_('Marca'))
+    modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE, null=True, verbose_name=_('Modelo'))
+    fabricado_el=models.IntegerField(default=datetime.now().year, verbose_name=_('Año de Fabricación'))
+    cantidad_puertas = models.IntegerField(verbose_name=_('Cantidad de Puertas'))
+    cilindrada = models.FloatField(default= 0,  verbose_name=_('Cilindrada'))
+    tipo_combustible = models.ForeignKey(Tipo_combustible, on_delete=models.CASCADE, null=True,   verbose_name=_('Tipo de Combustible'))
+    pais_fabricacion = models.ForeignKey(Pais_fabricacion, on_delete=models.CASCADE, null=True, verbose_name=_('País de Fabricación'))
+    precio_dolares = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name=_('Precio en USD'))
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True,  verbose_name=_('Color'))
+    active=models.BooleanField(default=True,  verbose_name=_('Activo'))
+    
     objects = ProductQuerySet.as_manager()
 
     def __str__(self):
@@ -80,4 +81,3 @@ class ImagenAuto(models.Model):
         return self.description or f'Image of {self.vehiculo}'
     
 
-#HACER MIGRACION

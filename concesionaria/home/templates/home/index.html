@@ -1,3 +1,4 @@
+
 {% extends 'home/base.html' %}
 
 {% block content %}
@@ -7,8 +8,14 @@
         <div class="card">
             <img class="card-img-top" src="holder.js/100x180/" alt="">
             <div class="card-body">
-                <h4 class="card-title">Bienvenido {% if user.is_authenticated %} {{user.nombre}} {% endif %}</h4>
-                <p class="card-text">Al Sistema</p>
+                <h4 class="card-title">
+                    {% if user.is_authenticated %}
+                        ¡Bienvenido {{ user.first_name|default:"Estimado Usuario" }} a AutoLux!
+                    {% else %}
+                        Bienvenido a nuestra concesionaria de autos
+                    {% endif %}
+                </h4>
+                <p class="card-text">Explora nuestra selección de vehículos y disfruta de una experiencia única</p>
             </div>
         </div>
     </div>
