@@ -57,7 +57,7 @@ class Vehiculo(models.Model):
     objects = ProductQuerySet.as_manager()
 
     def __str__(self):
-        return f'{self.marca} {self.modelo} ${self.precio_dolares}'
+        return f'{self.marca} {self.modelo} '
 
 class Comentario(models.Model):
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE,related_name='comentarios')
@@ -69,11 +69,7 @@ class Comentario(models.Model):
         return f'Comentario de {self.author} sobre {self.vehiculo}'
 
 class ImagenAuto(models.Model):
-    vehiculo = models.ForeignKey(
-        Vehiculo,
-        on_delete=models.CASCADE, 
-        related_name='images'
-    )
+    vehiculo = models.ForeignKey(Vehiculo,on_delete=models.CASCADE, related_name='imagenes')
     image = models.ImageField(upload_to='images_vehiculo/', null=True)
     description = models.TextField(blank=True, null=True)
 

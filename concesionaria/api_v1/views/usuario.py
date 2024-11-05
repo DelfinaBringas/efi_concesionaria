@@ -20,8 +20,12 @@ class UserViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+           
+            password=serializer.validate_data.get('password')
+            if password:
+               user.ser_password(password)
+               user.save()
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
-        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # delete

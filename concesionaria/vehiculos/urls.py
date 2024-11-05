@@ -5,6 +5,7 @@ from vehiculos.views.vehiculo_view import (
     VehiculoDetailView,
     VehiculoUpdateView,
     VehiculoListView,
+    ImagenDeleteView
 )
 
 from vehiculos.views.proveedor_view import (
@@ -23,12 +24,14 @@ from vehiculos.views.comentario_view import (
     ComentarioUpdateView
 )
 
+
 urlpatterns = [
     path(route="", view=VehiculoListView.as_view(), name='vehiculo_list'),
     path(route="create/", view=VehiculoCreateView.as_view(), name='vehiculo_create'),
     path(route="<int:id>/delete/", view=VehiculoDeleteView.as_view(), name='vehiculo_delete'),
     path(route="<int:id>/update/", view=VehiculoUpdateView.as_view(), name='vehiculo_update'),
     path(route="<int:id>/detail/", view=VehiculoDetailView.as_view(), name='vehiculo_detail'),
+    path('imagen/<int:imagen_id>/delete/', ImagenDeleteView.as_view(), name='imagen_delete'),
 
     path(route='proveedor/', view=ProveedorListView.as_view(), name='proveedor_list'),
     path(route='proveedor/<int:id>/delete/', view=ProveedorDeleteView.as_view(), name="proveedor_delete"),
@@ -43,3 +46,4 @@ urlpatterns = [
     path(route='comentario/<int:id>/update/', view=ComentarioUpdateView.as_view(), name="comentario_update"),
 
 ]
+

@@ -1,15 +1,15 @@
 from django.views import View
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404, redirect
 from vehiculos.repositories.vehiculo import VehiculoRepository
 from vehiculos.repositories.marca import MarcaReposository
 from vehiculos.repositories.modelo import ModeloReposository
 from vehiculos.repositories.combustible import CombustibleRepository
 from vehiculos.repositories.pais_fabricacion import PaisRepository
 from vehiculos.repositories.color import ColorRepository
-from vehiculos.models import Vehiculo, Comentario
-from vehiculos.forms import VehiculoForm
+from vehiculos.models import Vehiculo, Comentario, ImagenAuto
+from vehiculos.forms import VehiculoForm, ImagenAutoForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import (activate, get_language, gettext_lazy as _, deactivate)
@@ -17,23 +17,33 @@ from users.models import Profile
 
 vehiculo_repository = VehiculoRepository() 
 
+from django.core.paginator import Paginator
 class VehiculoListView(View):
     def get(self, request):
-        # Configurar del usuario
+        # Configurar el idioma del usuario
         lang = 'es'  
         if request.user.is_authenticated:
             try:
                 profile = Profile.objects.get(user=request.user)
                 lang = profile.language
             except Profile.DoesNotExist:
-                # idioma por defecto
+                # Idioma por defecto
                 pass
             
-        activate(lang) 
+        activate(lang)
 
         vehiculos = vehiculo_repository.get_all()
-        return render(request, 'vehiculos/list.html', {'vehiculos': vehiculos})
-    
+
+        # Paginación
+        page_number = request.GET.get('page', 1)
+        paginator = Paginator(vehiculos, 20)  # 10 vehículos por página
+        try:
+            vehiculos_page = paginator.page(page_number)
+        except Exception:
+            vehiculos_page = paginator.page(1)  # Regresar a la primera página en caso de error
+
+        return render(request, 'vehiculos/list.html', {'vehiculos': vehiculos_page})
+
 
 
 class VehiculoDeleteView(LoginRequiredMixin, View):
@@ -48,55 +58,59 @@ class VehiculoCreateView(UserPassesTestMixin, View):
 
     def get(self, request):
         form = VehiculoForm()
-        marca_repo = MarcaReposository()
-        modelo_repo = ModeloReposository()
-        combustible_repo = CombustibleRepository()
-        pais_repo = PaisRepository()
-        color_repo = ColorRepository()
-
+        image_form = ImagenAutoForm()
         context = {
             'form': form,
-            'marcas': marca_repo.get_all(),
-            'modelos': modelo_repo.get_all(),
-            'combustibles': combustible_repo.get_all(),
-            'paises': pais_repo.get_all(),
-            'colores': color_repo.get_all(),
+            'image_form': image_form,
+            'marcas': MarcaReposository().get_all(),
+            'modelos': ModeloReposository().get_all(),
+            'combustibles': CombustibleRepository().get_all(),
+            'paises': PaisRepository().get_all(),
+            'colores': ColorRepository().get_all(),
         }
         return render(request, 'vehiculos/create.html', context)
 
     def post(self, request):
         form = VehiculoForm(request.POST)
-        if form.is_valid():
-            marca_id = form.cleaned_data['marca'].id
-            modelo_id = form.cleaned_data['modelo'].id
-            combustible_id = form.cleaned_data['tipo_combustible'].id
-            pais_id = form.cleaned_data['pais_fabricacion'].id
-            color_id = form.cleaned_data['color'].id
-
-            marca_repo = MarcaReposository()
-            modelo_repo = ModeloReposository()
-            combustible_repo = CombustibleRepository()
-            pais_repo = PaisRepository()
-            color_repo = ColorRepository()
-
+        image_form = ImagenAutoForm(request.POST, request.FILES)
+        
+        if form.is_valid() and image_form.is_valid():
             vehiculo_nuevo = vehiculo_repository.create(
-                marca=marca_repo.get_by_id(marca_id),
-                modelo=modelo_repo.get_by_id(modelo_id),
+                marca=form.cleaned_data['marca'],
+                modelo=form.cleaned_data['modelo'],
                 cantidad_puertas=form.cleaned_data['cantidad_puertas'],
                 fabricado_el=form.cleaned_data['fabricado_el'],
                 cilindrada=form.cleaned_data['cilindrada'],
-                tipo_combustible=combustible_repo.get_by_id(combustible_id),
-                pais_fabricacion=pais_repo.get_by_id(pais_id),
+                tipo_combustible=form.cleaned_data['tipo_combustible'],
+                pais_fabricacion=form.cleaned_data['pais_fabricacion'],
                 precio_dolares=form.cleaned_data['precio_dolares'],
-                color=color_repo.get_by_id(color_id),
+                color=form.cleaned_data['color'],
             )
+            
+            # Procesar las imágenes subidas
+            if 'image' in request.FILES:
+                ImagenAuto.objects.create(
+                    vehiculo=vehiculo_nuevo,
+                    image=request.FILES['image'],
+                    description=image_form.cleaned_data.get('description', '')
+                )
+
             return HttpResponseRedirect(reverse('vehiculo_list'))
-        return self.get(request)
+        
+        context = {
+            'form': form,
+            'image_form': image_form,
+            'marcas': MarcaReposository().get_all(),
+            'modelos': ModeloReposository().get_all(),
+            'combustibles': CombustibleRepository().get_all(),
+            'paises': PaisRepository().get_all(),
+            'colores': ColorRepository().get_all(),
+        }
+        return render(request, 'vehiculos/create.html', context)
 
 
 class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
-        # Permite acceso si el usuario es staff o el vehículo pertenece al usuario
         vehiculo = self.get_object()
         return self.request.user.is_staff or vehiculo.creador == self.request.user
 
@@ -106,8 +120,10 @@ class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request, id):
         vehiculo = self.get_object()
         form = VehiculoForm(instance=vehiculo)
+        image_form = ImagenAutoForm()
         context = {
             'form': form,
+            'image_form': image_form,
             'marcas': MarcaReposository().get_all(),
             'modelos': ModeloReposository().get_all(),
             'combustibles': CombustibleRepository().get_all(),
@@ -119,19 +135,31 @@ class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     def post(self, request, id):
         vehiculo = self.get_object()
         form = VehiculoForm(request.POST, instance=vehiculo)
-        if form.is_valid():
-            form.save()
+        image_form = ImagenAutoForm(request.POST, request.FILES)
+        
+        if form.is_valid() and image_form.is_valid():
+            vehiculo_actualizado = form.save()
+            
+            # Procesar la carga de nuevas imágenes
+            if 'image' in request.FILES:
+                ImagenAuto.objects.create(
+                    vehiculo=vehiculo_actualizado,
+                    image=request.FILES['image'],
+                    description=image_form.cleaned_data.get('description', '')
+                )
+
             return HttpResponseRedirect(reverse('vehiculo_list'))
+        
         context = {
             'form': form,
+            'image_form': image_form,
             'marcas': MarcaReposository().get_all(),
             'modelos': ModeloReposository().get_all(),
             'combustibles': CombustibleRepository().get_all(),
             'paises': PaisRepository().get_all(),
             'colores': ColorRepository().get_all(),
         }
-        return render(request, 'vehiculos/create.html', context)
-
+        return render(request, 'vehiculos/update.html', context)
 
 class VehiculoDetailView(View):
     def get(self, request, id):
@@ -142,8 +170,15 @@ class VehiculoDetailView(View):
             'comentarios': comentarios
         })
 
+class ImagenDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_staff
 
-
+    def post(self, request, imagen_id):
+        imagen = get_object_or_404(ImagenAuto, id=imagen_id)
+        vehiculo_id = imagen.vehiculo.id  
+        imagen.delete()
+        return redirect('vehiculo_detail', id=vehiculo_id)  
 
 
 

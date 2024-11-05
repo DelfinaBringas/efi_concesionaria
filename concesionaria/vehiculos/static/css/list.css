@@ -1,0 +1,50 @@
+body {
+    background-color: #000000 !important; 
+    font-family: Arial, sans-serif; 
+}
+
+h2 {
+    margin-bottom: 30px; 
+    font-family: 'Georgia', serif; 
+    font-size: 2.5rem;
+    color: #ff5733 !important; 
+}
+
+.table th,
+.table td {
+    color: white !important; 
+    vertical-align: middle; 
+}
+
+.btn {
+    transition: background-color 0.3s; 
+    margin: 10px; 
+}
+
+.btn:hover {
+    background-color: #0056b3; 
+}
+
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0 0 10px #0000001a; 
+}
+
+.user-info {
+    border: 1px solid #007bff; 
+    border-radius: 5px; 
+    padding: 15px; 
+    background-image: url('../imagen/foto6.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    position: relative; 
+    z-index: 1; 
+}
+
+.custom-navbar {
+    background-color: #93aef8;
+}

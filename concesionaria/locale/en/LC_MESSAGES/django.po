@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-31 19:15-0300\n"
+"POT-Creation-Date: 2024-11-02 15:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,109 +18,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: concesionaria/settings.py:127
+#: concesionaria/settings.py:128
 msgid "English"
 msgstr ""
 
-#: concesionaria/settings.py:128
+#: concesionaria/settings.py:129
 msgid "Español"
 msgstr ""
 
-#: vehiculos/models.py:46 vehiculos/templates/vehiculos/list.html:31
+#: vehiculos/models.py:26
+msgid "Nombre del Color"
+msgstr ""
+
+
+#: vehiculos/models.py:60 vehiculos/templates/vehiculos/list.html:38
 msgid "Marca"
 msgstr "Brand"
 
-#: vehiculos/models.py:47 vehiculos/templates/vehiculos/list.html:32
+#: vehiculos/models.py:61 vehiculos/templates/vehiculos/list.html:39
 msgid "Modelo"
 msgstr "Model"
 
-#: vehiculos/models.py:48
+#: vehiculos/models.py:62
 msgid "Año de Fabricación"
 msgstr "Manufactured Year"
 
-#: vehiculos/models.py:49 vehiculos/templates/vehiculos/list.html:34
+#: vehiculos/models.py:63 vehiculos/templates/vehiculos/list.html:41
 msgid "Cantidad de Puertas"
 msgstr "Number of Doors"
 
-#: vehiculos/models.py:50 vehiculos/templates/vehiculos/list.html:35
+#: vehiculos/models.py:64 vehiculos/templates/vehiculos/list.html:42
 msgid "Cilindrada"
 msgstr "Displacement"
 
-#: vehiculos/models.py:51 vehiculos/templates/vehiculos/list.html:36
+#: vehiculos/models.py:65 vehiculos/templates/vehiculos/list.html:43
 msgid "Tipo de Combustible"
 msgstr "Fuel Type"
 
-#: vehiculos/models.py:52
+#: vehiculos/models.py:66
 msgid "País de Fabricación"
 msgstr "Country of Manufacture"
 
-#: vehiculos/models.py:53
+#: vehiculos/models.py:67
 msgid "Precio en USD"
 msgstr "Price in USD"
 
-#: vehiculos/models.py:54 vehiculos/templates/vehiculos/list.html:39
+#: vehiculos/models.py:68 vehiculos/templates/vehiculos/list.html:46
 msgid "Color"
 msgstr "Color"
 
-#: vehiculos/models.py:55
+#: vehiculos/models.py:69
 msgid "Activo"
 msgstr "Active"
 
-#: vehiculos/templates/vehiculos/list.html:9
+#: vehiculos/templates/vehiculos/list.html:7
 msgid "Concesionaria AutoLux"
 msgstr "AutoLux Dealership"
 
-#: vehiculos/templates/vehiculos/list.html:13
+#: vehiculos/templates/vehiculos/list.html:20
 msgid "Información del Usuario"
 msgstr "User Information"
 
-#: vehiculos/templates/vehiculos/list.html:14
+#: vehiculos/templates/vehiculos/list.html:21
 msgid "Nombre"
 msgstr "Name"
 
-#: vehiculos/templates/vehiculos/list.html:15
+#: vehiculos/templates/vehiculos/list.html:22
 msgid "Email"
 msgstr "E-mail"
 
-#: vehiculos/templates/vehiculos/list.html:17
+#: vehiculos/templates/vehiculos/list.html:24
+#: vehiculos/templates/vehiculos/list.html:26
+msgid "Rol"
+msgstr "Role"
+
+#: vehiculos/templates/vehiculos/list.html:24
 msgid "Staff"
 msgstr "Staff"
 
-#: vehiculos/templates/vehiculos/list.html:19
+#: vehiculos/templates/vehiculos/list.html:26
 msgid "Usuario"
 msgstr "User"
 
-#: vehiculos/templates/vehiculos/list.html:25
+#: vehiculos/templates/vehiculos/list.html:32
 msgid "Añadir Auto"
 msgstr "Add Auto"
 
-#: vehiculos/templates/vehiculos/list.html:33
+#: vehiculos/templates/vehiculos/list.html:40
 msgid "Año de Fabricacion"
 msgstr "Year of Manufacture"
 
-#: vehiculos/templates/vehiculos/list.html:37
+#: vehiculos/templates/vehiculos/list.html:44
 msgid "Pais de Fabricacion"
 msgstr "Country of Manufacturing"
 
-#: vehiculos/templates/vehiculos/list.html:38
+#: vehiculos/templates/vehiculos/list.html:45
 msgid "Precio USD"
 msgstr "USD Price"
 
-#: vehiculos/templates/vehiculos/list.html:55
+#: vehiculos/templates/vehiculos/list.html:63
 msgid "Detalles"
 msgstr "Details"
 
-#: vehiculos/templates/vehiculos/list.html:60
+#: vehiculos/templates/vehiculos/list.html:68
 msgid "Eliminar"
 msgstr "Eliminate"
 
-#: vehiculos/templates/vehiculos/list.html:62
+#: vehiculos/templates/vehiculos/list.html:70
 msgid "Editar"
 msgstr "Edit"
 
-#: vehiculos/templates/vehiculos/list.html:64
+#: vehiculos/templates/vehiculos/list.html:72
 msgid "Comentarios"
 msgstr "Comments"
 
-msgid "Rol"
-msgstr "Role"
+msgid "Acciones"
+msgstr "Actions"

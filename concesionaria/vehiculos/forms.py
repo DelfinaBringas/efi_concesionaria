@@ -38,13 +38,11 @@ class ProveedorForm(forms.ModelForm):
             'telefono':forms.NumberInput(attrs={'class': 'form-control custom-class'}),
         }  
 
-#DUDA:
 class ImagenAutoForm(forms.ModelForm):
     class Meta:
         model = ImagenAuto
-        fields = ['vehiculo', 'image', 'description']
+        fields = ['image', 'description']
         widgets = {
-            'vehiculo': forms.Select(attrs={'class': 'form-control'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }

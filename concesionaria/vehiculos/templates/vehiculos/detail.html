@@ -4,23 +4,51 @@
     <h2>Detalles del Vehículo</h2>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ vehiculo.modelo.nombre }}</h5>
-            <p class="card-text"><strong>Marca:</strong> {{ vehiculo.marca.nombre }}</p>
-            <p class="card-text"><strong>Modelo:</strong> {{ vehiculo.modelo.nombre }}</p>
-            <p class="card-text"><strong>Año de Fabricacion:</strong> {{ vehiculo.fabricado_el }}</p>
-            <p class="card-text"><strong>Cantidad de puertas:</strong> {{ vehiculo.cantidad_puertas }}</p>
-            <p class="card-text"><strong>Cilindrada:</strong> {{ vehiculo.cilindrada }}</p>
-            <p class="card-text"><strong>Tipo de combustible:</strong> {{ vehiculo.tipo_combustible.nombre }}</p>
-            <p class="card-text"><strong>País de fabricación:</strong> {{ vehiculo.pais_fabricacion.nombre }}</p>
-            <p class="card-text"><strong>Precio en USD:</strong> {{ vehiculo.precio_dolares }}</p>
-            <p class="card-text"><strong>Color:</strong> {{ vehiculo.color.nombre }}</p>
-            
-            {% if user.is_staff %}
-                <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success btn-sm">Editar</a>
-                <a href="{% url 'vehiculo_delete' vehiculo.id %}" class="btn btn-danger">Borrar</a>
-            {% endif %}
-            
-            <a href="{% url 'vehiculo_list' %}" class="btn btn-secondary">Volver a la lista</a>
+            <div class="row">
+                <!-- Columna de imágenes a la izquierda -->
+                <div class="col-md-4">
+                    <h5 class="card-title">{{ vehiculo.modelo.nombre }}</h5>
+                    <strong>Imágenes del Vehículo:</strong>
+                    {% if vehiculo.imagenes.all %}
+                        {% for imagen in vehiculo.imagenes.all %}
+                            <div class="mb-3">
+                                <img src="{{ imagen.image.url }}" alt="{{ imagen.description }}" class="img-fluid mb-2">
+                                {% if imagen.description %}
+                                    <p>{{ imagen.description }}</p>
+                                {% endif %}
+                                {% if user.is_staff %}
+                                    <form action="{% url 'imagen_delete' imagen.id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Borrar Imagen</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay imágenes disponibles para este vehículo.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Columna de información a la derecha -->
+                <div class="col-md-8">
+                    <p class="card-text"><strong>Marca:</strong> {{ vehiculo.marca.nombre }}</p>
+                    <p class="card-text"><strong>Modelo:</strong> {{ vehiculo.modelo.nombre }}</p>
+                    <p class="card-text"><strong>Año de Fabricacion:</strong> {{ vehiculo.fabricado_el }}</p>
+                    <p class="card-text"><strong>Cantidad de puertas:</strong> {{ vehiculo.cantidad_puertas }}</p>
+                    <p class="card-text"><strong>Cilindrada:</strong> {{ vehiculo.cilindrada }}</p>
+                    <p class="card-text"><strong>Tipo de combustible:</strong> {{ vehiculo.tipo_combustible.nombre }}</p>
+                    <p class="card-text"><strong>País de fabricación:</strong> {{ vehiculo.pais_fabricacion.nombre }}</p>
+                    <p class="card-text"><strong>Precio en USD:</strong> {{ vehiculo.precio_dolares }}</p>
+                    <p class="card-text"><strong>Color:</strong> {{ vehiculo.color.nombre }}</p>
+
+                    {% if user.is_staff %}
+                        <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success btn-sm">Editar</a>
+                        <a href="{% url 'vehiculo_delete' vehiculo.id %}" class="btn btn-danger">Borrar</a>
+                    {% endif %}
+                    
+                    <a href="{% url 'vehiculo_list' %}" class="btn btn-secondary">Volver a la lista</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
