@@ -134,3 +134,9 @@ msgstr "Comments"
 
 msgid "Acciones"
 msgstr "Actions"
+
+msgid "Listado de Autos"
+msgstr "Car List"
+
+msgid "Proveedores"
+msgstr "supplier"

@@ -48,7 +48,7 @@ SELF_APPS=[
 
 EXTERMINAL_APPS=[
     'rest_framework', 
-    'django_filters',
+    'django_filters', 
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + EXTERMINAL_APPS + SELF_APPS

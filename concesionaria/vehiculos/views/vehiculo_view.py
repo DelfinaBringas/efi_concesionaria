@@ -14,10 +14,10 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import (activate, get_language, gettext_lazy as _, deactivate)
 from users.models import Profile
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 vehiculo_repository = VehiculoRepository() 
 
-from django.core.paginator import Paginator
 class VehiculoListView(View):
     def get(self, request):
         # Configurar el idioma del usuario
@@ -27,24 +27,24 @@ class VehiculoListView(View):
                 profile = Profile.objects.get(user=request.user)
                 lang = profile.language
             except Profile.DoesNotExist:
-                # Idioma por defecto
                 pass
             
         activate(lang)
 
-        vehiculos = vehiculo_repository.get_all()
+        # Obtener y ordenar los vehículos
+        vehiculos = vehiculo_repository.get_all().order_by('id')  # Asegura el orden por un campo único
 
         # Paginación
         page_number = request.GET.get('page', 1)
-        paginator = Paginator(vehiculos, 20)  # 10 vehículos por página
+        paginator = Paginator(vehiculos, 20)
         try:
             vehiculos_page = paginator.page(page_number)
-        except Exception:
-            vehiculos_page = paginator.page(1)  # Regresar a la primera página en caso de error
+        except PageNotAnInteger:
+            vehiculos_page = paginator.page(1)
+        except EmptyPage:
+            vehiculos_page = paginator.page(paginator.num_pages)
 
         return render(request, 'vehiculos/list.html', {'vehiculos': vehiculos_page})
-
-
 
 class VehiculoDeleteView(LoginRequiredMixin, View):
     def post(self, request, id):

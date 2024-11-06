@@ -1,116 +1,130 @@
-.navbar {
-    background-color: #f8f9fa;
-    padding: 10px;
+/* Estilo para el título h2 */
+.container h2 {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Asegurar que las imágenes estén centradas */
+.image-container {
+    display: flex;
+    justify-content: center;  /* Centra la imagen horizontalmente */
+    align-items: center;      /* Centra la imagen verticalmente */
+    width: 100%;              /* Asegura que el contenedor de la imagen ocupe todo el ancho disponible */
+}
+
+/* Estilo para la imagen del vehículo */
+.imagen-vehiculo {
+    max-width: 100%;  /* Hace que la imagen ocupe todo el espacio disponible sin distorsionar */
+    max-height: 900px; /* Limita la altura de la imagen para evitar que se haga demasiado grande */
+    object-fit: contain; /* Mantiene la relación de aspecto sin deformar la imagen */
+    margin-top: 20px;
+    border: 5px solid #1e2731; /* Borde de 5px con color azul */
+    border-radius: 10px; /* Bordes redondeados para suavizar la imagen */
+}
+
+/* Estilos para alinear los detalles del vehículo */
+.row {
+    display: flex;
+    align-items: flex-start;  /* Alinea todos los elementos del row al principio (a la misma altura) */
+}
+
+/* Estilos para los detalles del vehículo */
+.card-text {
+    margin-bottom: 10px;  /* Añadir algo de espacio entre los detalles */
+}
+
+/* Estilo para la tarjeta */
+.card-body {
+    padding: 1.5rem;  /* Añadir padding adicional para darle espacio a los elementos */
+}
+
+/* Contenedor de botones */
+.button-container {
+    text-align: left; /* Asegura que los botones se alineen a la izquierda */
+    padding: 0; /* Eliminar padding innecesario */
+    margin: 0; /* Eliminar margen innecesario */
+}
+
+/* Estilo de los botones */
+.btn {
+    display: inline-block;    /* Los botones se alinean uno al lado del otro */
+    font-size: 0.85rem;       /* Ajusta el tamaño de la fuente */
+    border-radius: 5px;       /* Bordes redondeados */
+    text-align: center;       /* Centra el texto dentro del botón */
+    margin-right: 10px;       /* Espacio entre los botones */
+    margin-left: 0;           /* Elimina el margen izquierdo */
+    padding: 6px 12px;        /* Ajusta el padding de los botones */
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+/* Asegúrate de que el contenedor que rodea los botones no tenga márgenes o padding innecesarios */
+.card-body {
+    padding: 1.5rem;  /* Añadir padding adicional para darle espacio a los elementos */
+}
+/* Estilo para el contenedor de los detalles */
+.col-md-8 {
+    display: flex;
+    flex-direction: column; /* Hace que los detalles se apilen verticalmente */
+    justify-content: flex-start; /* Alinea los detalles desde el principio */
+}
+
+/* Alineación de la tarjeta */
+.card {
+    margin-top: 30px;  /* Mantener el margen superior para separar las cards */
+    border-radius: 15px;  /* Bordes redondeados para un diseño más suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* Sombra más grande para darle efecto de profundidad */
+    width: 90%;  /* Hacer la card más ancha (ajustar según lo necesites) */
+    max-width: 1200px;  /* Limitar el tamaño máximo de la card */
+    height: 600px;  /* La altura será automática en función del contenido */
+    padding: 30px;  /* Agregar más espacio dentro de la card */
+    margin: 0 auto;  /* Centrar la card horizontalmente */
+}
+
+/* Estilo para los botones */
+.col-md-9 {
+    text-align: left;  /* Alineación de los botones a la izquierda */
+    margin-left: 400px;
+    position: absolute;
+}
+
+.form-container.bg-dark {
+    background-color: #ffffff !important; /* Fondo gris oscuro */
+    color: rgb(14, 14, 14) !important; /* Texto blanco */
+    padding: 20px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.navbar .btn-outline-primary,
-.navbar .btn-outline-danger,
-.navbar .btn-outline-success {
-    font-size: 0.85rem;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-left: 5px;
-
+.form-container.bg-dark .form-group label {
+    color: rgb(0, 0, 0) !important; /* Asegura que las etiquetas también sean blancas */
 }
 
-.navbar .btn-outline-primary:hover {
-    background-color: #0056b3;
-    color: white;
+.form-container.bg-dark .form-group input,
+.form-container.bg-dark .form-group select,
+.form-container.bg-dark .form-group textarea {
+    background-color: #495057; /* Fondo más oscuro para los campos de entrada */
+    color: rgb(0, 0, 0); /* Texto en blanco */
+    border: 1px solid #6c757d; /* Borde gris claro */
 }
 
-.navbar .btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: white;
+.form-container.bg-dark .form-group input:focus,
+.form-container.bg-dark .form-group select:focus,
+.form-container.bg-dark .form-group textarea:focus {
+    border-color: #007bff; /* Color azul para el borde cuando se enfoca */
 }
 
-.navbar .btn-outline-success:hover {
-    background-color: #28a745;
-    color: white;
+.form-container.bg-dark .btn-primary {
+    background-color: #007bff; /* Botón azul */
+    border-color: #007bff;
 }
 
-
-.navbar .container-fluid {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
+.form-container.bg-dark .text-danger {
+    color: #ff4d4d; /* Color rojo para los mensajes de error */
 }
 
-.form-container {
-    background-color: white; 
-    padding: 30px; 
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
-    max-width: 500px; 
-    margin: auto;
-}
-
-.form-container form {
-    background-color: white; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
-    width: 100%;
-    max-width: 500px; 
-}
-
-
-.register-text {
-    margin-top: 15px;
-    text-align: center;
-
-}
-
-.register-text p {
-    color: #007bff;
-    font-size: 1rem;
-}
-
-.register-text .link-register {
-    color: #ff6666;
+/* Estilo para el título */
+h2.text-center.text-white {
+    color: white; /* Título en blanco */
     font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.register-text .link-register:hover {
-    color: #e63939;
-}
-
-h2 {
-    color: black; 
-    margin-bottom: 20px; 
-}
-
-.form-group {
-    display: flex; 
-    flex-direction: column; 
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    margin-bottom: 5px; 
-}
-
-.form-group input {
-    width: 100%; 
-    padding: 10px; 
-    border: 1px solid #ced4da; 
-    border-radius: 5px; 
-}
-
-.form-container {
-    background-color: white; 
-    padding: 30px; 
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
-    max-width: 700px; 
-    width: 100%;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh; 
 }

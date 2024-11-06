@@ -1,18 +1,28 @@
 {% extends "home/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container mt-3">
-    <h2>Actualizar Vehículo</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        
-        <label for="id_image">Actualizar Imagen:</label>
-        {{ image_form.image }}
-        
-        <label for="id_description">Descripción de la Imagen:</label>
-        {{ image_form.description }}
-        
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
+    <h2 class="text-center text-white">Actualizar Vehículo</h2>
+    <!-- Agregamos un div para dar el fondo gris y el texto blanco -->
+    <div class="form-container bg-dark text-white">  <!-- Aquí agregamos el fondo gris -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Mantengo el formulario tal cual como estaba -->
+            
+            <label for="id_image">Actualizar Imagen:</label>
+            {{ image_form.image }}
+            
+            <label for="id_description">Descripción de la Imagen:</label>
+            {{ image_form.description }}
+            
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

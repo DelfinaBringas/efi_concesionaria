@@ -1,9 +1,15 @@
 {% extends 'home/base.html' %}
 
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row justify-content-center" style="min-height: 80vh;">
-        <div class="col-md-9">
+        <div class="col-md-8 col-lg-9">
             <div class="form-container">
                 <div class="form-header">
                     <h3 class="text-center" style="color: black;">Registro de Usuario</h3> 
@@ -14,7 +20,7 @@
                         
                         <div class="form-group">
                             <label for="id_username">Nombre de Usuario</label>
-                            {{ form.username }}
+                            {{ form.username }} <!-- Asegúrate de que form.username esté bien definido -->
                             {% if form.username.errors %}
                                 <div class="text-danger">{{ form.username.errors }}</div>
                             {% endif %}
@@ -59,6 +65,7 @@
                                 <div class="text-danger">{{ form.last_name.errors }}</div>
                             {% endif %}
                         </div>
+
                         <button type="submit" class="btn btn-primary">Registrarme</button>
                     </form>
                 </div>

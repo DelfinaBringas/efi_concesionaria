@@ -141,3 +141,10 @@ msgstr "Comentarios"
 
 msgid "Acciones"
 msgstr "Acciones"
+
+msgid "Listado de Autos"
+msgstr "Listado de Autos"
+
+msgid "Proveedores"
+msgstr "Proveedores"
+

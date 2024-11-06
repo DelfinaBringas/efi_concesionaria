@@ -1,50 +1,124 @@
+/* Estilos generales */
 body {
-    background-color: #000000 !important; 
-    font-family: Arial, sans-serif; 
+    background-color: #000000 !important;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
 }
 
-h2 {
-    margin-bottom: 30px; 
-    font-family: 'Georgia', serif; 
-    font-size: 2.5rem;
-    color: #ff5733 !important; 
-}
-
-.table th,
-.table td {
-    color: white !important; 
-    vertical-align: middle; 
-}
-
-.btn {
-    transition: background-color 0.3s; 
-    margin: 10px; 
-}
-
-.btn:hover {
-    background-color: #0056b3; 
-}
-
+/* Contenedor principal */
 .container {
     margin-top: 20px;
     padding: 20px;
-    border-radius: 10px; 
-    box-shadow: 0 0 10px #0000001a; 
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0000001a;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
 }
 
+/* Estilo para .user-info */
 .user-info {
-    border: 1px solid #007bff; 
-    border-radius: 5px; 
-    padding: 15px; 
-    background-image: url('../imagen/foto6.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    color: #ffffff;
+    position: relative;
+    width: 100%;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 15px;
+    background-image: url('../imagen/image.png'); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff; /* Color blanco para los textos */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    position: relative; 
-    z-index: 1; 
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en una columna */
+    justify-content: flex-start; /* Alinea los elementos al principio */
+    text-align: left; /* Alineación del texto a la izquierda */
+    max-height: 400px; /* Limita la altura máxima del contenedor */
+    overflow-y: auto;
 }
 
-.custom-navbar {
-    background-color: #93aef8;
+/* Pseudo-elemento para el fondo negro */
+.user-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Esto hace que el fondo negro ocupe todo el área */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semi-transparente */
+    z-index: 0; /* Asegura que esté debajo del texto */
 }
+
+/* Estilo para los párrafos dentro de .user-info */
+.user-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    background-color: transparent; /* Fondo transparente ya que el fondo negro lo hace el ::before */
+    color: #ffffff; /* Aseguramos que el texto sea blanco */
+    padding: 5px 10px; /* Añade espacio alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    display: inline-block; /* Fondo ajustado al tamaño del texto */
+    text-align: left; /* Alinea el texto a la izquierda */
+    width: auto; /* Asegura que el fondo se ajuste al tamaño del texto */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    position: relative;
+    z-index: 1; /* Asegura que el texto esté encima del fondo */
+}
+
+/* Estilo para los títulos dentro de .user-info */
+.user-info h4 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    background-color: transparent; /* Fondo transparente */
+    color: #978b8b; /* Aseguramos que el texto sea blanco */
+    padding: 5px 10px; /* Añade espacio alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    display: inline-block; /* Fondo ajustado al tamaño del texto */
+    text-align: left; /* Alinea el texto a la izquierda */
+    width: auto; /* Asegura que el fondo se ajuste al tamaño del texto */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    position: relative;
+    z-index: 1; /* Asegura que el título esté encima del fondo */
+}
+
+/* Estilo para los botones dentro de .user-info */
+.user-info .btn {
+    margin: 5px 0; /* Agrega espacio entre los botones */
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-bottom: 50px;
+}
+
+
+
+/* Aseguramos que los textos de las tablas sean blancos */
+.table th,
+.table td {
+    color: white !important;
+    vertical-align: middle;
+}
+
+.btn {
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea todos los elementos al inicio (izquierda) */
+}
+
+/* Estilo para el botón añadir auto */
+.btn.btn-primary {
+    margin: 5px 0; /* Ajusta el espacio entre el botón y otros elementos */
+    align-self: flex-start; /* Esto asegura que el botón se alinee a la izquierda en su contenedor */
+    width: auto; /* El botón solo ocupará el ancho necesario */
+}
+

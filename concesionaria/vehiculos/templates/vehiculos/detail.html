@@ -1,25 +1,31 @@
 {% extends "home/base.html" %}
+
+{% load static %} 
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container mt-3">
     <h2>Detalles del Vehículo</h2>
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <!-- Columna de imágenes a la izquierda -->
                 <div class="col-md-4">
                     <h5 class="card-title">{{ vehiculo.modelo.nombre }}</h5>
                     <strong>Imágenes del Vehículo:</strong>
                     {% if vehiculo.imagenes.all %}
                         {% for imagen in vehiculo.imagenes.all %}
-                            <div class="mb-3">
-                                <img src="{{ imagen.image.url }}" alt="{{ imagen.description }}" class="img-fluid mb-2">
+                            <div class="image-description-container mb-3">
+                                <img src="{{ imagen.image.url }}" alt="{{ imagen.description }}" class="img-fluid imagen-vehiculo">
                                 {% if imagen.description %}
-                                    <p>{{ imagen.description }}</p>
+                                    <p class="image-description">{{ imagen.description }}</p>
                                 {% endif %}
                                 {% if user.is_staff %}
                                     <form action="{% url 'imagen_delete' imagen.id %}" method="post" style="display:inline;">
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger btn-sm">Borrar Imagen</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
                                     </form>
                                 {% endif %}
                             </div>
@@ -29,8 +35,7 @@
                     {% endif %}
                 </div>
 
-                <!-- Columna de información a la derecha -->
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <p class="card-text"><strong>Marca:</strong> {{ vehiculo.marca.nombre }}</p>
                     <p class="card-text"><strong>Modelo:</strong> {{ vehiculo.modelo.nombre }}</p>
                     <p class="card-text"><strong>Año de Fabricacion:</strong> {{ vehiculo.fabricado_el }}</p>
@@ -41,8 +46,9 @@
                     <p class="card-text"><strong>Precio en USD:</strong> {{ vehiculo.precio_dolares }}</p>
                     <p class="card-text"><strong>Color:</strong> {{ vehiculo.color.nombre }}</p>
 
+                    <div class="button-container "></div>
                     {% if user.is_staff %}
-                        <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success btn-sm">Editar</a>
+                        <a href="{% url 'vehiculo_update' vehiculo.id %}" class="btn btn-success">Editar</a>
                         <a href="{% url 'vehiculo_delete' vehiculo.id %}" class="btn btn-danger">Borrar</a>
                     {% endif %}
                     
