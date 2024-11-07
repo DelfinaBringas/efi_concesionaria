@@ -4,7 +4,7 @@
     <h2>Actualizar Proveedor</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }} <!-- Renderiza el formulario con los datos actuales del objeto -->
+        {{ form.as_p }} 
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
 </div>

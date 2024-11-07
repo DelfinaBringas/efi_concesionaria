@@ -1,64 +1,90 @@
 from rest_framework import serializers
-from vehiculos.models import Vehiculo, Comentario, Marca
+from vehiculos.models import Marca, Color,Vehiculo, Modelo, Tipo_combustible, Pais_fabricacion
 
-# MARCA:
 class MarcaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marca
         fields = ('nombre', 'pk')
 
-# COMENTARIO:
-class ComentarioSerializer(serializers.ModelSerializer):
-    author_nombre = serializers.ReadOnlyField(source='author.username')
-
+class ModeloSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comentario
-        fields = ['id', 'vehiculo', 'author', 'author_nombre', 'texto', 'fecha']
+        model = Modelo
+        fields = ('nombre', 'pk')
 
-# VEHICULO:
+class Tipo_combustibleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tipo_combustible
+        fields = ('nombre', 'pk')
+
+class Pais_fabricacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pais_fabricacion
+        fields = ('nombre', 'pk')
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = ('nombre', 'pk')
+
 class VehiculoSerializer(serializers.ModelSerializer):
-    # Mantener la selección de marca como PK para el formulario
-    marca = serializers.PrimaryKeyRelatedField(queryset=Marca.objects.all())
-    comentarios = ComentarioSerializer(many=True, read_only=True)
-    active = serializers.BooleanField(default=True) 
+    marca = serializers.PrimaryKeyRelatedField(queryset=Marca.objects.all())  
+    modelo = serializers.PrimaryKeyRelatedField(queryset=Modelo.objects.all())  
+    tipo_combustible = serializers.PrimaryKeyRelatedField(queryset=Tipo_combustible.objects.all())  
+    pais_fabricacion = serializers.PrimaryKeyRelatedField(queryset=Pais_fabricacion.objects.all())  
+    color = serializers.PrimaryKeyRelatedField(queryset=Color.objects.all())
 
     class Meta:
         model = Vehiculo
-        fields = [
-            'marca', 'modelo', 'fabricado_el', 'cantidad_puertas', 'cilindrada',
-            'tipo_combustible', 'pais_fabricacion', 'precio_dolares', 
-            'color', 'active', 'comentarios'
-        ]
+        fields = '__all__'
 
     def to_representation(self, instance):
-        # Anidar el serializador de Marca solo en la respuesta
         representation = super().to_representation(instance)
-        representation['marca'] = MarcaSerializer(instance.marca).data
+        
+        representation['marca'] = instance.marca.nombre if instance.marca else None
+        representation['modelo'] = instance.modelo.nombre if instance.modelo else None
+        representation['tipo_combustible'] = instance.tipo_combustible.nombre if instance.tipo_combustible else None
+        representation['pais_fabricacion'] = instance.pais_fabricacion.nombre if instance.pais_fabricacion else None
+        representation['color'] = instance.color.nombre if instance.color else None
         return representation
 
-    def create(self, validated_data):
-        # Extraer datos de la marca
-        marca_data = validated_data.pop('marca')
-        marca, _ = Marca.objects.get_or_create(pk=marca_data)
-        validated_data['marca'] = marca
-
-        return super().create(validated_data)
-
     def update(self, instance, validated_data):
-        # Actualiza el campo de marca
-        marca_data = validated_data.pop('marca', None)
-        if marca_data:
-            instance.marca = Marca.objects.get(pk=marca_data)
-        
-        instance.modelo = validated_data.get('modelo', instance.modelo)
-        instance.fabricado_el = validated_data.get('fabricado_el', instance.fabricado_el)
+        marca_nombre = validated_data.pop('marca', None)
+        if marca_nombre:
+            try:
+                instance.marca = Marca.objects.get(nombre=marca_nombre)
+            except Marca.DoesNotExist:
+                raise serializers.ValidationError({"marca": "La marca con ese nombre no existe."})
+
+        modelo_nombre = validated_data.pop('modelo', None)
+        if modelo_nombre:
+            try:
+                instance.modelo = Modelo.objects.get(nombre=modelo_nombre)
+            except Modelo.DoesNotExist:
+                raise serializers.ValidationError({"modelo": "El modelo con ese nombre no existe."})
+
+        tipo_combustible_nombre = validated_data.pop('tipo_combustible', None)
+        if tipo_combustible_nombre:
+            try:
+                instance.tipo_combustible = Tipo_combustible.objects.get(nombre=tipo_combustible_nombre)
+            except Tipo_combustible.DoesNotExist:
+                raise serializers.ValidationError({"tipo_combustible": "El tipo de combustible con ese nombre no existe."})
+
+        pais_fabricacion_nombre = validated_data.pop('pais_fabricacion', None)
+        if pais_fabricacion_nombre:
+            try:
+                instance.pais_fabricacion = Pais_fabricacion.objects.get(nombre=pais_fabricacion_nombre)
+            except Pais_fabricacion.DoesNotExist:
+                raise serializers.ValidationError({"pais_fabricacion": "El país de fabricación con ese nombre no existe."})
+
+        color_nombre = validated_data.pop('color', None)
+        if color_nombre:
+            try:
+                instance.color = Color.objects.get(nombre=color_nombre)
+            except Color.DoesNotExist:
+                raise serializers.ValidationError({"color": "El color con ese nombre no existe."})
+
         instance.cantidad_puertas = validated_data.get('cantidad_puertas', instance.cantidad_puertas)
         instance.cilindrada = validated_data.get('cilindrada', instance.cilindrada)
-        instance.tipo_combustible = validated_data.get('tipo_combustible', instance.tipo_combustible)
-        instance.pais_fabricacion = validated_data.get('pais_fabricacion', instance.pais_fabricacion)
         instance.precio_dolares = validated_data.get('precio_dolares', instance.precio_dolares)
-        instance.color = validated_data.get('color', instance.color)
-        instance.active = validated_data.get('active', instance.active)
-
         instance.save()
         return instance

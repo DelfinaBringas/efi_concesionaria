@@ -101,10 +101,10 @@ class ComentarioDeleteView(LoginRequiredMixin, View):
 
     def post(self, request, id):
         comentario = get_object_or_404(Comentario, id=id)
-        # Verificar si el usuario es el autor del comentario o es staff
+    
         if request.user != comentario.author and not request.user.is_staff:
             return HttpResponseForbidden("No tienes permiso para eliminar este comentario.")
         
-        vehiculo_id = comentario.vehiculo.id  # Obtén el vehiculo_id del comentario
+        vehiculo_id = comentario.vehiculo.id  
         comentario.delete()
         return redirect('comentario_list', vehiculo_id=vehiculo_id)

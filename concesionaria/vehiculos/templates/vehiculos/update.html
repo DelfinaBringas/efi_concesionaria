@@ -9,11 +9,10 @@
 {% block content %}
 <div class="container mt-3">
     <h2 class="text-center text-white">Actualizar Vehículo</h2>
-    <!-- Agregamos un div para dar el fondo gris y el texto blanco -->
-    <div class="form-container bg-dark text-white">  <!-- Aquí agregamos el fondo gris -->
+    <div class="form-container bg-dark text-white">  
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}  <!-- Mantengo el formulario tal cual como estaba -->
+            {{ form.as_p }}  
             
             <label for="id_image">Actualizar Imagen:</label>
             {{ image_form.image }}

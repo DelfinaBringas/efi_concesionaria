@@ -32,7 +32,7 @@ class VehiculoListView(View):
         activate(lang)
 
         # Obtener y ordenar los vehículos
-        vehiculos = vehiculo_repository.get_all().order_by('id')  # Asegura el orden por un campo único
+        vehiculos = vehiculo_repository.get_all().order_by('id') 
 
         # Paginación
         page_number = request.GET.get('page', 1)
@@ -87,7 +87,7 @@ class VehiculoCreateView(UserPassesTestMixin, View):
                 color=form.cleaned_data['color'],
             )
             
-            # Procesar las imágenes subidas
+
             if 'image' in request.FILES:
                 ImagenAuto.objects.create(
                     vehiculo=vehiculo_nuevo,
@@ -140,7 +140,7 @@ class VehiculoUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
         if form.is_valid() and image_form.is_valid():
             vehiculo_actualizado = form.save()
             
-            # Procesar la carga de nuevas imágenes
+            # carga de nuevas imágenes
             if 'image' in request.FILES:
                 ImagenAuto.objects.create(
                     vehiculo=vehiculo_actualizado,

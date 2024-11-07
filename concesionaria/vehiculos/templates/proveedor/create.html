@@ -5,7 +5,7 @@
     <h2>Crear Proveedor</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }} <!-- Esto renderiza todos los campos del formulario en párrafos <p> -->
+        {{ form.as_p }} 
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>

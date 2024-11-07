@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import viewsets
 from api_v1.filters import VehiculoFilter
-from api_v1.serializer.vehiculo_serializer import VehiculoSerializer, ComentarioSerializer
+from api_v1.serializer.vehiculo_serializer import VehiculoSerializer
 from vehiculos.models import Vehiculo, Comentario, Marca, Modelo, Tipo_combustible, Pais_fabricacion, Color
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -23,24 +23,21 @@ class VehiculoViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action in ['update', 'destroy', 'create']:
             self.permission_classes = [IsAdminUser]
-        return super().get_permissions()  #ver
+        return super().get_permissions()  
 
     def create(self, request, *args, **kwargs):
         data = request.data
 
-        # Validación de campos obligatorios
         required_fields = ['marca', 'modelo', 'precio_dolares', 'tipo_combustible', 'pais_fabricacion', 'color']
         for field in required_fields:
             if field not in data or data[field] is None:
                 return Response({ "detail": f"El campo '{field}' es obligatorio." }, status=status.HTTP_400_BAD_REQUEST)
 
-        # Validación de `precio_dolares`
         try:
             precio_dolares = float(data['precio_dolares'])
         except (ValueError, TypeError):
             return Response({ "detail": "El campo 'precio_dolares' debe ser un número decimal." }, status=status.HTTP_400_BAD_REQUEST)
 
-        # Obtener instancias de los modelos relacionados
         try:
             marca = Marca.objects.get(id=data['marca'])
             modelo = Modelo.objects.get(id=data['modelo'])
@@ -108,6 +105,3 @@ class VehiculoViewSet(ModelViewSet):
         serializer= self.serializer_class(last_vehiculo)
         return Response(serializer.data)
 
-class ComentarioViewSet(viewsets.ModelViewSet):
-    queryset = Comentario.objects.all()
-    serializer_class = ComentarioSerializer
